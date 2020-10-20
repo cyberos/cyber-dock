@@ -13,7 +13,7 @@ ApplicationModel::ApplicationModel(QObject *parent)
     connect(m_iface, &XWindowInterface::windowRemoved, this, &ApplicationModel::onWindowRemoved);
     connect(m_iface, &XWindowInterface::activeChanged, this, &ApplicationModel::onActiveChanged);
 
-    initPinedApplications();
+    initPinnedApplications();
 
     QTimer::singleShot(100, m_iface, &XWindowInterface::startInitWindows);
 }
@@ -33,7 +33,7 @@ QHash<int, QByteArray> ApplicationModel::roleNames() const
     roles[VisibleNameRole] = "visibleName";
     roles[ActiveRole] = "isActive";
     roles[WindowCountRole] = "windowCount";
-    roles[IsPinedRole] = "isPined";
+    roles[IsPinnedRole] = "isPinned";
     return roles;
 }
 
@@ -55,8 +55,8 @@ QVariant ApplicationModel::data(const QModelIndex &index, int role) const
         return item->isActive;
     case WindowCountRole:
         return item->wids.count();
-    case IsPinedRole:
-        return item->isPined;
+    case IsPinnedRole:
+        return item->isPinned;
     default:
         return QVariant();
     }
@@ -72,7 +72,7 @@ void ApplicationModel::clicked(const QString &id)
     if (!item)
         return;
 
-    // Application Item that has been pined,
+    // Application Item that has been pinned,
     // We need to open it.
     if (item->wids.isEmpty()) {
         // open application
@@ -138,7 +138,7 @@ void ApplicationModel::pin(const QString &appId)
         return;
 
     beginResetModel();
-    item->isPined = true;
+    item->isPinned = true;
     endResetModel();
 
     savePinAndUnPinList();
@@ -152,7 +152,7 @@ void ApplicationModel::unPin(const QString &appId)
         return;
 
     beginResetModel();
-    item->isPined = false;
+    item->isPinned = false;
     endResetModel();
 
     // Need to be removed after unpin
@@ -211,7 +211,7 @@ int ApplicationModel::indexOf(const QString &id)
     return -1;
 }
 
-void ApplicationModel::initPinedApplications()
+void ApplicationModel::initPinnedApplications()
 {
     QSettings settings(QSettings::UserScope, "cyberos", "dock_pinned");
     QStringList groups = settings.childGroups();
@@ -229,7 +229,7 @@ void ApplicationModel::initPinedApplications()
                 item->exec = settings.value("Exec").toString();
                 item->desktopPath = settings.value("DesktopPath").toString();
                 item->id = id;
-                item->isPined = true;
+                item->isPinned = true;
                 m_appItems.append(item);
                 endInsertRows();
                 emit countChanged();
@@ -250,7 +250,7 @@ void ApplicationModel::savePinAndUnPinList()
     int index = 0;
 
     for (ApplicationItem *item : m_appItems) {
-        if (item->isPined) {
+        if (item->isPinned) {
             settings.beginGroup(item->id);
             settings.setValue("IconName", item->iconName);
             settings.setValue("visibleName", item->visibleName);
@@ -318,7 +318,7 @@ void ApplicationModel::onWindowRemoved(quint64 wid)
 
     if (item->wids.isEmpty()) {
         // If it is not fixed to the dock, need to remove it.
-        if (!item->isPined) {
+        if (!item->isPinned) {
             int index = indexOf(item->id);
 
             if (index == -1)
