@@ -34,9 +34,9 @@ Item {
         }
 
         MenuItem {
-            text: model.isPined ? qsTr("Unpin") : qsTr("Pin")
+            text: model.isPinned ? qsTr("Unpin") : qsTr("Pin")
             onTriggered: {
-                model.isPined ? appModel.unPin(model.appId) : appModel.pin(model.appId)
+                model.isPinned ? appModel.unPin(model.appId) : appModel.pin(model.appId)
             }
         }
 
