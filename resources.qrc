@@ -4,6 +4,5 @@
         <file>qml/DockItem.qml</file>
         <file>qml/AppItemDelegate.qml</file>
         <file>svg/launcher.svg</file>
-        <file>qml/PopupTips.qml</file>
     </qresource>
 </RCC>
