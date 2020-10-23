@@ -90,8 +90,8 @@ Rectangle {
             if (containsMouse) {
                 icon.state = "mouseIn"
                 popupTips.popupText = dockItem.popupText
-                popupTips.x = dockItem.mapToGlobal(0, 0).x + (dockItem.width / 2- popupTips.width / 2)
-                popupTips.y = dockItem.mapToGlobal(0, 0).y - popupTips.height - Meui.Units.smallSpacing
+                popupTips.position = Qt.point(dockItem.mapToGlobal(0, 0).x + (dockItem.width / 2- popupTips.width / 2),
+                                              dockItem.mapToGlobal(0, 0).y - popupTips.height - Meui.Units.smallSpacing)
                 popupTips.show()
             } else {
                 icon.state = "mouseOut"
