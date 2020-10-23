@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QT Core Widgets Quick QuickControls2 X11Extras DBus)
 find_package(Qt5 REQUIRED ${QT})
 find_package(KF5WindowSystem REQUIRED)
+find_package(MeuiKit REQUIRED)
 
 set(SRCS
     src/applicationitem.h
@@ -24,7 +25,6 @@ set(SRCS
     src/systemappmonitor.cpp
     src/systemappitem.cpp
     src/processprovider.cpp
-    src/popuptips.cpp
     src/trashmanager.cpp
     src/utils.cpp
     src/xwindowinterface.cpp
@@ -43,6 +43,8 @@ target_link_libraries(${PROJECT_NAME}
         Qt5::QuickControls2
         Qt5::X11Extras
         Qt5::DBus
+
+        MeuiKit
 
         KF5::WindowSystem
 )

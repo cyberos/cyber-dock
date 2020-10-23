@@ -21,7 +21,6 @@ MainWindow::MainWindow(QQuickView *parent)
     : QQuickView(parent)
     , m_settings(DockSettings::self())
     , m_appModel(new ApplicationModel)
-    , m_popupTips(new PopupTips)
     , m_resizeAnimation(new QVariantAnimation(this))
 {
     setDefaultAlphaBuffer(true);
@@ -34,9 +33,7 @@ MainWindow::MainWindow(QQuickView *parent)
 
     engine()->rootContext()->setContextProperty("appModel", m_appModel);
     engine()->rootContext()->setContextProperty("process", new ProcessProvider);
-    engine()->rootContext()->setContextProperty("popupTips", m_popupTips);
     engine()->rootContext()->setContextProperty("Settings", m_settings);
-    engine()->addImageProvider("icontheme", new IconThemeImageProvider);
 
     setResizeMode(QQuickView::SizeRootObjectToView);
     setClearBeforeRendering(true);
@@ -75,7 +72,7 @@ void MainWindow::resizeWindow()
 {
     // Change the window size means that the number of dock items changes
     // Need to hide popup tips.
-    m_popupTips->hide();
+    // m_popupTips->hide();
 
     QSize screenSize = screen()->size();
 

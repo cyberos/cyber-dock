@@ -28,5 +28,6 @@ QPixmap IconThemeImageProvider::requestPixmap(const QString &id, QSize *realSize
     QIcon icon = QIcon::fromTheme(id);
     if (icon.isNull())
         icon = QIcon::fromTheme(QLatin1String("application-x-desktop"));
+
     return icon.pixmap(size);
 }

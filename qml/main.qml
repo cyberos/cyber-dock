@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtGraphicalEffects 1.0
+import MeuiKit 1.0 as Meui
 
 Rectangle {
     visible: true
@@ -22,6 +23,10 @@ Rectangle {
         color: backgroundColor
         border.color: borderColor
         border.width: 1
+    }
+
+    Meui.PopupTips {
+        id: popupTips
     }
 
     DockItem {

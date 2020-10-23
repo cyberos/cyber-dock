@@ -7,7 +7,6 @@
 
 #include "docksettings.h"
 #include "applicationmodel.h"
-#include "popuptips.h"
 
 class MainWindow : public QQuickView
 {
@@ -28,7 +27,6 @@ private:
 private:
     DockSettings *m_settings;
     ApplicationModel *m_appModel;
-    PopupTips *m_popupTips;
     QVariantAnimation *m_resizeAnimation;
     int m_maxLength;
 };

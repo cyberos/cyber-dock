@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import MeuiKit 1.0 as Meui
 
 Rectangle {
     id: dockItem
@@ -88,7 +89,10 @@ Rectangle {
         onContainsMouseChanged: {
             if (containsMouse) {
                 icon.state = "mouseIn"
-                popupTips.popup(dockItem.mapToGlobal(0, 0), popupText)
+                popupTips.popupText = dockItem.popupText
+                popupTips.x = dockItem.mapToGlobal(0, 0).x + (dockItem.width / 2- popupTips.width / 2)
+                popupTips.y = dockItem.mapToGlobal(0, 0).y - popupTips.height - Meui.Units.smallSpacing
+                popupTips.show()
             } else {
                 icon.state = "mouseOut"
                 popupTips.hide()
