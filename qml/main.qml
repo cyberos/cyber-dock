@@ -16,11 +16,21 @@ Rectangle {
     property color inactiveDotColor: Meui.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.6) : Qt.rgba(0, 0, 0, 0.9)
 
     Rectangle {
-        id: background
+        id: outerFrame
         anchors.fill: parent
         radius: parent.height * 0.3
         color: backgroundColor
-        border.color: borderColor
+        border.color: Qt.rgba(0, 0, 0, 0.4)
+        border.width: 1
+    }
+
+    Rectangle {
+        id: innerBorder
+        anchors.fill: parent
+        anchors.margins: 1.5
+        radius: parent.height * 0.3
+        color: "transparent"
+        border.color: Qt.rgba(255, 255, 255, 0.4)
         border.width: 1
     }
 
