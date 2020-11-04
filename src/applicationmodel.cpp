@@ -4,10 +4,9 @@
 #include <QProcess>
 
 ApplicationModel::ApplicationModel(QObject *parent)
-    : QAbstractListModel(parent),
-      m_iface(XWindowInterface::instance()),
-      m_sysAppMonitor(SystemAppMonitor::self()),
-      m_iconSize(88)
+    : QAbstractListModel(parent)
+    , m_iface(XWindowInterface::instance())
+    , m_sysAppMonitor(SystemAppMonitor::self())
 {
     connect(m_iface, &XWindowInterface::windowAdded, this, &ApplicationModel::onWindowAdded);
     connect(m_iface, &XWindowInterface::windowRemoved, this, &ApplicationModel::onWindowRemoved);

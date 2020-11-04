@@ -126,21 +126,33 @@ bool XWindowInterface::isAcceptableWindow(quint64 wid)
     return !NET::typeMatchesMask(info.windowType(NET::AllTypesMask), normalFlag);
 }
 
-void XWindowInterface::setViewStruts(QWindow *view, const QRect &rect)
+void XWindowInterface::setViewStruts(QWindow *view, DockSettings::Direction direction, const QRect &rect)
 {
     NETExtendedStrut strut;
-    int margin = 10;
 
     const auto screen = view->screen();
 
     const QRect currentScreen {screen->geometry()};
     const QRect wholeScreen { {0, 0}, screen->virtualSize() };
 
-    // bottom
-    const int bottomOffset { wholeScreen.bottom() - currentScreen.bottom() };
-    strut.bottom_width = rect.height() + bottomOffset + margin;
-    strut.bottom_start = rect.x();
-    strut.bottom_end = rect.x() + rect.width();
+    switch (direction) {
+    case DockSettings::Left: {
+        const int leftOffset = { screen->geometry().left() };
+        strut.left_width = rect.width() + leftOffset + DockSettings::self()->edgeMargins();
+        strut.left_start = rect.y();
+        strut.left_end = rect.y() + rect.height() - 1;
+        break;
+    }
+    case DockSettings::Bottom: {
+        const int bottomOffset { wholeScreen.bottom() - currentScreen.bottom() };
+        strut.bottom_width = rect.height() + bottomOffset + DockSettings::self()->edgeMargins();
+        strut.bottom_start = rect.x();
+        strut.bottom_end = rect.x() + rect.width();
+        break;
+    }
+    default:
+        break;
+    }
 
     KWindowSystem::setExtendedStrut(view->winId(),
                                     strut.left_width,   strut.left_start,   strut.left_end,

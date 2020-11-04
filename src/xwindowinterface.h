@@ -2,6 +2,7 @@
 #define XWINDOWINTERFACE_H
 
 #include "applicationitem.h"
+#include "docksettings.h"
 #include <QObject>
 
 // KLIB
@@ -27,7 +28,7 @@ public:
     QString requestWindowClass(quint64 wid);
     bool isAcceptableWindow(quint64 wid);
 
-    void setViewStruts(QWindow *view, const QRect &rect);
+    void setViewStruts(QWindow *view, DockSettings::Direction direction, const QRect &rect);
 
     void startInitWindows();
 

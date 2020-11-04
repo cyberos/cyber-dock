@@ -1,11 +1,12 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import Qt.labs.platform 1.0
+import org.cyber.Dock 1.0
 
 Item {
     id: appItem
-    width: root.height
-    height: root.height
+    implicitWidth: (Settings.direction === DockSettings.Left) ? root.width : root.height
+    implicitHeight: (Settings.direction === DockSettings.Left) ? root.width : root.height
 
     property bool enableActivateDot: true
     property bool isActive: model.isActive
@@ -20,8 +21,8 @@ Item {
 
     function updateGeometry() {
         appModel.updateGeometries(model.appId, Qt.rect(dockItem.mapToGlobal(0, 0).x,
-                                                            dockItem.mapToGlobal(0, 0).y,
-                                                            dockItem.width, dockItem.height))
+                                                       dockItem.mapToGlobal(0, 0).y,
+                                                       dockItem.width, dockItem.height))
     }
 
     Menu {

@@ -1,12 +1,14 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtGraphicalEffects 1.0
+import org.cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
 
 MouseArea {
     id: dockItem
-    width: root.height
-    height: root.height
+
+    implicitWidth: (Settings.direction === DockSettings.Left) ? root.width : root.height
+    implicitHeight: (Settings.direction === DockSettings.Left) ? root.width : root.height
 
     property bool enableActivateDot: true
     property bool isActive: false
@@ -68,8 +70,14 @@ MouseArea {
         onContainsMouseChanged: {
             if (containsMouse) {
                 popupTips.popupText = dockItem.popupText
-                popupTips.position = Qt.point(dockItem.mapToGlobal(0, 0).x + (dockItem.width / 2- popupTips.width / 2),
-                                              dockItem.mapToGlobal(0, 0).y - popupTips.height - Meui.Units.smallSpacing)
+
+                if (Settings.direction == DockSettings.Left)
+                    popupTips.position = Qt.point(root.width + Settings.edgeMargins,
+                                                  dockItem.mapToGlobal(0, 0).y + (dockItem.height / 2 - popupTips.height / 2))
+                else
+                    popupTips.position = Qt.point(dockItem.mapToGlobal(0, 0).x + (dockItem.width / 2 - popupTips.width / 2),
+                                                  dockItem.mapToGlobal(0, 0).y - popupTips.height - Settings.edgeMargins)
+
                 popupTips.show()
             } else {
                 popupTips.hide()
@@ -86,8 +94,12 @@ MouseArea {
         visible: enableActivateDot
 
         anchors {
-            top: icon.bottom
-            horizontalCenter: parent.horizontalCenter
+            leftMargin: (Settings.direction === DockSettings.Left) ? dockItem.height * 0.07 / 2 : 0
+            left: (Settings.direction === DockSettings.Left) ? parent.left : undefined
+            verticalCenter: (Settings.direction === DockSettings.Left) ? parent.verticalCenter : undefined
+
+            top: (Settings.direction === DockSettings.Left) ? undefined : icon.bottom
+            horizontalCenter: (Settings.direction === DockSettings.Left) ? undefined : parent.horizontalCenter
         }
     }
 }

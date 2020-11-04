@@ -28,7 +28,6 @@ private:
     DockSettings *m_settings;
     ApplicationModel *m_appModel;
     QVariantAnimation *m_resizeAnimation;
-    int m_maxLength;
 };
 
 #endif // MAINWINDOW_H

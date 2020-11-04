@@ -14,7 +14,6 @@ public:
     enum Roles {
         AppIdRole = Qt::UserRole + 1,
         IconNameRole,
-        IconSizeRole,
         VisibleNameRole,
         ActiveRole,
         WindowCountRole,
@@ -35,8 +34,6 @@ public:
     Q_INVOKABLE void unPin(const QString &appId);
 
     Q_INVOKABLE void updateGeometries(const QString &id, QRect rect);
-
-    int iconSize() { return m_iconSize; }
 
 signals:
     void countChanged();
@@ -59,7 +56,6 @@ private:
     XWindowInterface *m_iface;
     SystemAppMonitor *m_sysAppMonitor;
     QList<ApplicationItem *> m_appItems;
-    int m_iconSize;
 };
 
 #endif // APPLICATIONMODEL_H
