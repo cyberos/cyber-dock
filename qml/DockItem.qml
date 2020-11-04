@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import QtGraphicalEffects 1.0
 import MeuiKit 1.0 as Meui
 
 Rectangle {
@@ -40,37 +41,14 @@ Rectangle {
             verticalCenter: parent.verticalCenter
         }
 
-        states: ["mouseIn", "mouseOut"]
-        state: "mouseOut"
-
-        transitions: [
-            Transition {
-                from: "*"
-                to: "mouseIn"
-
-                NumberAnimation {
-                    target: icon
-                    properties: "scale"
-                    from: 1
-                    to: 1.1
-                    duration: 150
-                    easing.type: Easing.OutCubic
-                }
-            },
-            Transition {
-                from: "*"
-                to: "mouseOut"
-
-                NumberAnimation {
-                    target: icon
-                    properties: "scale"
-                    from: 1.1
-                    to: 1
-                    duration: 100
-                    easing.type: Easing.InCubic
-                }
-            }
-        ]
+        ColorOverlay {
+            id: iconColorize
+            anchors.fill: icon
+            source: icon
+            color: "#000000"
+            opacity: 0.5
+            visible: iconArea.pressed
+        }
     }
 
     MouseArea {
@@ -88,13 +66,11 @@ Rectangle {
 
         onContainsMouseChanged: {
             if (containsMouse) {
-                icon.state = "mouseIn"
                 popupTips.popupText = dockItem.popupText
                 popupTips.position = Qt.point(dockItem.mapToGlobal(0, 0).x + (dockItem.width / 2- popupTips.width / 2),
                                               dockItem.mapToGlobal(0, 0).y - popupTips.height - Meui.Units.smallSpacing)
                 popupTips.show()
             } else {
-                icon.state = "mouseOut"
                 popupTips.hide()
             }
         }
