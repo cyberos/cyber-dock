@@ -32,6 +32,7 @@ Rectangle {
         color: "transparent"
         border.color: Qt.rgba(255, 255, 255, 0.4)
         border.width: 1
+        visible: Meui.Theme.darkMode
     }
 
     Meui.PopupTips {
@@ -68,7 +69,7 @@ Rectangle {
             model: appModel
             clip: true
 
-            delegate: AppItemDelegate { }
+            delegate: AppItem { }
         }
     }
 

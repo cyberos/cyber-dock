@@ -3,7 +3,7 @@ import QtQuick.Controls 2.5
 import QtGraphicalEffects 1.0
 import MeuiKit 1.0 as Meui
 
-Rectangle {
+MouseArea {
     id: dockItem
     width: root.height
     height: root.height
@@ -19,10 +19,9 @@ Rectangle {
     property double iconSizeRatio: 0.8
     property var iconName
 
+    signal pressed()
     signal clicked()
     signal rightClicked()
-
-    color: "transparent"
 
     Image {
         id: icon
@@ -56,6 +55,8 @@ Rectangle {
         anchors.fill: icon
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton
+
+        onPressed: dockItem.pressed()
 
         onClicked: {
             if (mouse.button === Qt.LeftButton)
