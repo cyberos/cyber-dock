@@ -137,10 +137,9 @@ void ApplicationModel::pin(const QString &appId)
     if (!item)
         return;
 
-    beginResetModel();
     item->isPinned = true;
-    endResetModel();
 
+    handleDataChangedFromItem(item);
     savePinAndUnPinList();
 }
 
@@ -151,9 +150,8 @@ void ApplicationModel::unPin(const QString &appId)
     if (!item)
         return;
 
-    beginResetModel();
     item->isPinned = false;
-    endResetModel();
+    handleDataChangedFromItem(item);
 
     // Need to be removed after unpin
     if (item->wids.isEmpty()) {
@@ -278,6 +276,17 @@ void ApplicationModel::savePinAndUnPinList()
     settings.sync();
 }
 
+void ApplicationModel::handleDataChangedFromItem(ApplicationItem *item)
+{
+    if (!item)
+        return;
+
+    QModelIndex idx = index(indexOf(item->id), 0, QModelIndex());
+    if (idx.isValid()) {
+        emit dataChanged(idx, idx);
+    }
+}
+
 void ApplicationModel::onWindowAdded(quint64 wid)
 {
     QMap<QString, QVariant> info = m_iface->requestInfo(wid);
@@ -286,11 +295,10 @@ void ApplicationModel::onWindowAdded(quint64 wid)
     if (contains(id)) {
         for (ApplicationItem *item : m_appItems) {
             if (item->id == id) {
-                // Need to update application active status.
-                beginResetModel();
                 item->wids.append(wid);
+                // Need to update application active status.
                 item->isActive = info.value("active").toBool();
-                endResetModel();
+                handleDataChangedFromItem(item);
             }
         }
     } else {
@@ -325,9 +333,8 @@ void ApplicationModel::onWindowRemoved(quint64 wid)
         return;
 
     // Remove from wid list.
-    beginResetModel();
     item->wids.removeOne(wid);
-    endResetModel();
+    handleDataChangedFromItem(item);
 
     if (item->wids.isEmpty()) {
         // If it is not fixed to the dock, need to remove it.

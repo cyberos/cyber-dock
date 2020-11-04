@@ -48,6 +48,9 @@ private:
     int indexOf(const QString &id);
     void initPinnedApplications();
     void savePinAndUnPinList();
+
+    void handleDataChangedFromItem(ApplicationItem *item);
+
     void onWindowAdded(quint64 wid);
     void onWindowRemoved(quint64 wid);
     void onActiveChanged(quint64 wid);
