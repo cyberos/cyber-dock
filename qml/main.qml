@@ -82,7 +82,7 @@ Item {
 
     Connections {
         target: Settings
-        onDirectionChanged: {
+        function onDirectionChanged() {
             popupTips.hide()
         }
     }
