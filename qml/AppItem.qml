@@ -23,6 +23,7 @@ DockItem {
     onPressed: updateGeometry()
     onClicked: appModel.clicked(model.appId)
     onRightClicked: contextMenu.open()
+    onReleased: mouseArea.drag.target = null
 
     onPressAndHold: {
         mouseArea.drag.target = appItem.icon
