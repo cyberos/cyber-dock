@@ -26,6 +26,8 @@ public:
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
+    Q_INVOKABLE void save() { savePinAndUnPinList(); }
+
     Q_INVOKABLE void clicked(const QString &id);
 
     Q_INVOKABLE bool openNewInstance(const QString &appId);
@@ -34,6 +36,8 @@ public:
     Q_INVOKABLE void unPin(const QString &appId);
 
     Q_INVOKABLE void updateGeometries(const QString &id, QRect rect);
+
+    Q_INVOKABLE void move(int from, int to);
 
 signals:
     void countChanged();

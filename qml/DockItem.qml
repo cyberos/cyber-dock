@@ -4,11 +4,18 @@ import QtGraphicalEffects 1.0
 import org.cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
 
-MouseArea {
+Item {
     id: dockItem
 
     implicitWidth: (Settings.direction === DockSettings.Left) ? root.width : root.height
     implicitHeight: (Settings.direction === DockSettings.Left) ? root.width : root.height
+
+    property bool draggable: false
+    property int dragItemIndex
+
+    property alias icon: icon
+    property alias mouseArea: iconArea
+    property alias dropArea: iconDropArea
 
     property bool enableActivateDot: true
     property bool isActive: false
@@ -21,15 +28,23 @@ MouseArea {
     property double iconSizeRatio: 0.8
     property var iconName
 
-    signal pressed()
-    signal clicked()
-    signal rightClicked()
+    signal positionChanged()
+    signal released()
+    signal pressed(var mouse)
+    signal pressAndHold(var mouse)
+    signal clicked(var mouse)
+    signal rightClicked(var mouse)
+    signal doubleClicked(var mouse)
+
+    Drag.active: mouseArea.drag.active && dockItem.draggable
+    Drag.dragType: Drag.Automatic
+    Drag.supportedActions: Qt.MoveAction
 
     Image {
         id: icon
         source: {
             return iconName ? iconName.indexOf("/") === 0 || iconName.indexOf("file://") === 0 || iconName.indexOf("qrc") === 0
-                              ? iconName : "image://icontheme/" + iconName : iconName;
+                            ? iconName : "image://icontheme/" + iconName : iconName;
         }
         sourceSize.width: parent.height * iconSizeRatio
         sourceSize.height: parent.height * iconSizeRatio
@@ -48,8 +63,14 @@ MouseArea {
             source: icon
             color: "#000000"
             opacity: 0.5
-            visible: iconArea.pressed
+            visible: iconArea.pressed && !mouseArea.drag.active
         }
+    }
+
+    DropArea {
+        id: iconDropArea
+        anchors.fill: icon
+        enabled: draggable
     }
 
     MouseArea {
@@ -58,14 +79,17 @@ MouseArea {
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton
 
-        onPressed: dockItem.pressed()
-
         onClicked: {
-            if (mouse.button === Qt.LeftButton)
-                dockItem.clicked()
-            else if (mouse.button === Qt.RightButton)
-                dockItem.rightClicked()
+            if (mouse.button === Qt.RightButton)
+                dockItem.rightClicked(mouse)
+            else
+                dockItem.clicked(mouse)
         }
+
+        onPressed: dockItem.pressed(mouse)
+        onPressAndHold : dockItem.pressAndHold(mouse)
+        onPositionChanged: dockItem.positionChanged()
+        onReleased: dockItem.released()
 
         onContainsMouseChanged: {
             if (containsMouse) {

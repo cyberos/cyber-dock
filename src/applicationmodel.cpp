@@ -179,6 +179,20 @@ void ApplicationModel::updateGeometries(const QString &id, QRect rect)
     }
 }
 
+void ApplicationModel::move(int from, int to)
+{
+    if (from == to)
+        return;
+
+    m_appItems.move(from, to);
+
+    if (from < to)
+        beginMoveRows(QModelIndex(), from, from, QModelIndex(), to + 1);
+    else
+        beginMoveRows(QModelIndex(), from, from, QModelIndex(), to);
+    endMoveRows();
+}
+
 ApplicationItem *ApplicationModel::findItemByWId(quint64 wid)
 {
     for (ApplicationItem *item : m_appItems) {

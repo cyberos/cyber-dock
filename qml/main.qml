@@ -22,6 +22,12 @@ Item {
         color: backgroundColor
         border.color: Qt.rgba(0, 0, 0, 0.4)
         border.width: 1
+
+        Behavior on color {
+            ColorAnimation {
+                duration: 250
+            }
+        }
     }
 
     Rectangle {
@@ -61,9 +67,12 @@ Item {
             model: appModel
             delegate: AppItem { }
 
-            onCountChanged: {
-                // Automatically scroll list to end / bottom
-                appItemView.currentIndex = count - 1
+            moveDisplaced: Transition {
+                NumberAnimation {
+                    properties: "x, y"
+                    duration: 300
+                    easing.type: Easing.InOutQuad
+                }
             }
 
             Layout.fillHeight: true

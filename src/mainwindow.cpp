@@ -117,7 +117,7 @@ void MainWindow::resizeWindow()
         break;
     }
 
-    setVisible(false);
+    // setVisible(false);
     setMinimumSize(newSize);
     setMaximumSize(newSize);
     resize(newSize);

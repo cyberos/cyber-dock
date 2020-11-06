@@ -3,26 +3,39 @@ import QtQuick.Controls 2.5
 import Qt.labs.platform 1.0
 import org.cyber.Dock 1.0
 
-Item {
+DockItem {
     id: appItem
-    implicitWidth: (Settings.direction === DockSettings.Left) ? root.width : root.height
-    implicitHeight: (Settings.direction === DockSettings.Left) ? root.width : root.height
 
-    property bool enableActivateDot: true
-    property bool isActive: model.isActive
-    property var activateDotColor: "#2E64E6"
-    property var inactiveDotColor: "#000000"
-
-    property var iconName: model.iconName
-    property double iconSizeRatio: 0.8
-    property var iconSource
-
-    signal onClicked
+    iconName: model.iconName
+    isActive: model.isActive
+    popupText: model.visibleName
+    enableActivateDot: model.windowCount !== 0
+    draggable: true
+    dragItemIndex: index
 
     function updateGeometry() {
-        appModel.updateGeometries(model.appId, Qt.rect(dockItem.mapToGlobal(0, 0).x,
-                                                       dockItem.mapToGlobal(0, 0).y,
-                                                       dockItem.width, dockItem.height))
+        appModel.updateGeometries(model.appId, Qt.rect(appItem.mapToGlobal(0, 0).x,
+                                                       appItem.mapToGlobal(0, 0).y,
+                                                       appItem.width, appItem.height))
+    }
+
+    onPositionChanged: updateGeometry()
+    onPressed: updateGeometry()
+    onClicked: appModel.clicked(model.appId)
+    onRightClicked: contextMenu.open()
+
+    onPressAndHold: {
+        mouseArea.drag.target = appItem.icon
+        popupTips.hide()
+    }
+
+    dropArea.onEntered: {
+        appModel.move(drag.source.dragItemIndex, dragItemIndex)
+    }
+
+    dropArea.onDropped: {
+        appModel.save()
+        updateGeometry()
     }
 
     Menu {
@@ -52,19 +65,5 @@ Item {
             visible: model.windowCount !== 0
             onTriggered: appModel.closeAllByAppId(model.appId)
         }
-    }
-
-    DockItem {
-        id: dockItem
-        anchors.fill: parent
-        iconName: model.iconName
-        isActive: model.isActive
-        popupText: model.visibleName
-        enableActivateDot: model.windowCount !== 0
-
-        onPositionChanged: updateGeometry()
-        onPressed: updateGeometry()
-        onClicked: appModel.clicked(model.appId)
-        onRightClicked: contextMenu.open()
     }
 }
