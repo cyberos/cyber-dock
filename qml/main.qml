@@ -66,6 +66,7 @@ Item {
             clip: true
             model: appModel
             delegate: AppItem { }
+            interactive: false
 
             moveDisplaced: Transition {
                 NumberAnimation {

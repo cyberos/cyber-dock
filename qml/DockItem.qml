@@ -78,6 +78,7 @@ Item {
         anchors.fill: icon
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton
+        drag.target: icon
 
         onClicked: {
             if (mouse.button === Qt.RightButton)
@@ -86,7 +87,11 @@ Item {
                 dockItem.clicked(mouse)
         }
 
-        onPressed: dockItem.pressed(mouse)
+        onPressed: {
+            dockItem.pressed(mouse)
+            popupTips.hide()
+        }
+
         onPressAndHold : dockItem.pressAndHold(mouse)
         onPositionChanged: dockItem.positionChanged()
         onReleased: dockItem.released()

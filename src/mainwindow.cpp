@@ -23,6 +23,9 @@ MainWindow::MainWindow(QQuickView *parent)
     , m_appModel(new ApplicationModel)
     , m_resizeAnimation(new QVariantAnimation(this))
 {
+    m_resizeAnimation->setDuration(250);
+    m_resizeAnimation->setEasingCurve(QEasingCurve::InOutQuad);
+
     setDefaultAlphaBuffer(true);
     setColor(Qt::transparent);
 
@@ -86,68 +89,47 @@ void MainWindow::resizeWindow()
     const QRect screenGeometry = screen()->geometry();
 
     // Launcher and Trash
-    int fixedItemCount = 2;
+    const int fixedItemCount = 2;
 
-    int maxLength = (m_settings->direction() == DockSettings::Left) ? screenGeometry.height() - DockSettings::self()->statusBarHeight()
-                                                                    : screenGeometry.width();
-    int calcLength = m_settings->iconSize() * fixedItemCount;
+    const int maxLength = (m_settings->direction() == DockSettings::Left) ?
+                           screenGeometry.height() - DockSettings::self()->statusBarHeight() - m_settings->edgeMargins() :
+                           screenGeometry.width() - m_settings->edgeMargins();
+    int calcIconSize = m_settings->iconSize();
+    int allCount = m_appModel->rowCount() + fixedItemCount;
+    int calcLength = allCount * calcIconSize;
 
-    // Calculate the width to ensure that the window width
-    // cannot be greater than the screen width.
-    for (int i = 1; i <= m_appModel->rowCount(); ++i) {
-        calcLength += m_settings->iconSize();
-
-        // Has exceeded the screen width
-        if (calcLength >= maxLength) {
-            calcLength -= m_settings->iconSize();
+    // Cannot be greater than the screen length.
+    while (1) {
+        if (calcLength < maxLength)
             break;
-        }
+
+        calcIconSize -= 5;
+        calcLength = allCount * calcIconSize;
     }
 
     QSize newSize(0, 0);
 
     switch (m_settings->direction()) {
     case DockSettings::Left:
-        newSize = QSize(m_settings->iconSize(), calcLength);
+        newSize = QSize(calcIconSize, calcLength);
         break;
     case DockSettings::Bottom:
-        newSize = QSize(calcLength, m_settings->iconSize());
+        newSize = QSize(calcLength, calcIconSize);
         break;
     default:
         break;
     }
 
-    // setVisible(false);
-    setMinimumSize(newSize);
-    setMaximumSize(newSize);
-    resize(newSize);
-    setVisible(true);
-    updatePosition();
-    updateBlurRegion();
-    updateViewStruts();
+    // If the window size has not changed, there is no need to resize
+    if (this->size() != newSize) {
+        // Disable blur during resizing
+        XWindowInterface::instance()->enableBlurBehind(this, false);
 
-//    if (m_resizeAnimation->state() == QVariantAnimation::Running) {
-//        m_resizeAnimation->stop();
-//    }
-
-//    // Set zoom in and zoom out the ease curve
-//    if (newSize.width() > size().width()) {
-//        m_resizeAnimation->setEasingCurve(QEasingCurve::InOutCubic);
-//    } else {
-//        m_resizeAnimation->setEasingCurve(QEasingCurve::InCubic);
-//    }
-
-//    // If the window size has not changed, there is no need to resize
-//    if (this->size() != newSize) {
-//        // Disable blur during resizing
-//        XWindowInterface::instance()->enableBlurBehind(this, false);
-
-//        // Start the resize animation
-//        m_resizeAnimation->setDuration(250);
-//        m_resizeAnimation->setStartValue(this->size());
-//        m_resizeAnimation->setEndValue(newSize);
-//        m_resizeAnimation->start();
-//    }
+        // Start the resize animation
+        m_resizeAnimation->setStartValue(this->size());
+        m_resizeAnimation->setEndValue(newSize);
+        m_resizeAnimation->start();
+    }
 
     setVisible(true);
 }
