@@ -7,11 +7,11 @@ import MeuiKit 1.0 as Meui
 Item {
     visible: true
     id: root
+    clip: true
 
-    property color backgroundColor: Meui.Theme.darkMode ? Qt.rgba(0, 0, 0, 0.05) : Qt.rgba(255, 255, 255, 0.5)
-    property color foregroundColor: Meui.Theme.darkMode ? "white" : "black"
+    property color backgroundColor: Meui.Theme.darkMode ? Qt.rgba(0, 0, 0, 0.1) : Qt.rgba(255, 255, 255, 0.45)
     property color borderColor: Meui.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.1) : Qt.rgba(0, 0, 0, 0.05)
-    property color activateDotColor: Meui.Theme.darkMode ? "#4d81ff" : "#2E64E6"
+    property color activateDotColor: Meui.Theme.highlightColor
     property color inactiveDotColor: Meui.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.6) : Qt.rgba(0, 0, 0, 0.9)
     property real windowRadius: (Settings.direction === DockSettings.Left) ? root.width * 0.3 : root.height * 0.3
 
@@ -22,6 +22,8 @@ Item {
         color: backgroundColor
         border.color: Qt.rgba(0, 0, 0, 0.4)
         border.width: 1
+        antialiasing: true
+        smooth: true
 
         Behavior on color {
             ColorAnimation {
@@ -33,11 +35,13 @@ Item {
     Rectangle {
         id: innerBorder
         anchors.fill: parent
-        anchors.margins: 1.5
+        anchors.margins: 1
         radius: windowRadius
         color: "transparent"
         border.color: Qt.rgba(255, 255, 255, 0.4)
         border.width: 1
+        antialiasing: true
+        smooth: true
         visible: Meui.Theme.darkMode
     }
 
@@ -52,7 +56,6 @@ Item {
 
         DockItem {
             id: launcherItem
-            iconSizeRatio: 0.75
             enableActivateDot: false
             iconName: "qrc:/svg/launcher.svg"
             popupText: qsTr("Launcher")
@@ -83,7 +86,6 @@ Item {
         DockItem {
             id: trashItem
             popupText: qsTr("Trash")
-            iconSizeRatio: 0.75
             enableActivateDot: false
             iconName: "user-trash-empty"
             onClicked: process.start("gio", ["open", "trash:///"])

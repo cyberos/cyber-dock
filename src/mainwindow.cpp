@@ -41,9 +41,11 @@ MainWindow::MainWindow(QQuickView *parent)
 
     setResizeMode(QQuickView::SizeRootObjectToView);
     setClearBeforeRendering(true);
-    setScreen(qGuiApp->primaryScreen());
+    setScreen(qApp->primaryScreen());
     setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     resizeWindow();
+
+    connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, &MainWindow::resizeWindow);
 
     connect(this, &QQuickView::xChanged, this, &MainWindow::updatePosition);
     connect(this, &QQuickView::yChanged, this, &MainWindow::updatePosition);
@@ -86,7 +88,7 @@ void MainWindow::resizeWindow()
     // Need to hide popup tips.
     // m_popupTips->hide();
 
-    const QRect screenGeometry = screen()->geometry();
+    const QRect screenGeometry = qApp->primaryScreen()->geometry();
 
     // Launcher and Trash
     const int fixedItemCount = 2;
@@ -103,7 +105,7 @@ void MainWindow::resizeWindow()
         if (calcLength < maxLength)
             break;
 
-        calcIconSize -= 5;
+        calcIconSize -= 1;
         calcLength = allCount * calcIconSize;
     }
 
@@ -120,16 +122,10 @@ void MainWindow::resizeWindow()
         break;
     }
 
-    // If the window size has not changed, there is no need to resize
-    if (this->size() != newSize) {
-        // Disable blur during resizing
-        XWindowInterface::instance()->enableBlurBehind(this, false);
-
-        // Start the resize animation
-        m_resizeAnimation->setStartValue(this->size());
-        m_resizeAnimation->setEndValue(newSize);
-        m_resizeAnimation->start();
-    }
+    // Start the resize animation
+    m_resizeAnimation->setStartValue(this->size());
+    m_resizeAnimation->setEndValue(newSize);
+    m_resizeAnimation->start();
 
     setVisible(true);
 }
