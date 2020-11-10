@@ -53,6 +53,8 @@ Item {
         anchors.fill: parent
         rows: (Settings.direction === DockSettings.Left) ? 3 : 1
         columns: (Settings.direction === DockSettings.Left) ? 1 : 3
+        rowSpacing: 0
+        columnSpacing: 0
 
         DockItem {
             id: launcherItem
