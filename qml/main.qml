@@ -38,11 +38,11 @@ Item {
         anchors.margins: 1
         radius: windowRadius
         color: "transparent"
-        border.color: Qt.rgba(255, 255, 255, 0.4)
+        border.color: Qt.rgba(255, 255, 255, 0.2)
         border.width: 1
         antialiasing: true
         smooth: true
-        visible: Meui.Theme.darkMode
+        visible: true
     }
 
     Meui.PopupTips {

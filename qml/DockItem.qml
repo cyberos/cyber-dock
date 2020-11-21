@@ -10,6 +10,8 @@ Item {
     implicitWidth: (Settings.direction === DockSettings.Left) ? root.width : root.height
     implicitHeight: (Settings.direction === DockSettings.Left) ? root.width : root.height
 
+    property bool isLeft: Settings.direction === DockSettings.Left
+
     property bool draggable: false
     property int dragItemIndex
 
@@ -51,6 +53,7 @@ Item {
         width: sourceSize.width
         height: sourceSize.height
         smooth: true
+        cache: true
 
         anchors {
             horizontalCenter: parent.horizontalCenter
@@ -121,14 +124,7 @@ Item {
         color: isActive ? activateDotColor : inactiveDotColor
         radius: height
         visible: enableActivateDot
-
-        anchors {
-            leftMargin: (Settings.direction === DockSettings.Left) ? dockItem.height * 0.07 / 2 : 0
-            left: (Settings.direction === DockSettings.Left) ? parent.left : undefined
-            verticalCenter: (Settings.direction === DockSettings.Left) ? parent.verticalCenter : undefined
-
-            top: (Settings.direction === DockSettings.Left) ? undefined : icon.bottom
-            horizontalCenter: (Settings.direction === DockSettings.Left) ? undefined : parent.horizontalCenter
-        }
+        x: isLeft ? icon.x - activeDot.width : (parent.width - width) / 2
+        y: isLeft ? (parent.height - height) / 2 : icon.y + icon.height
     }
 }
