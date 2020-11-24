@@ -30,6 +30,8 @@ Item {
     property double iconSizeRatio: 0.8
     property var iconName
 
+    property bool dragStarted: false
+
     signal positionChanged()
     signal released()
     signal pressed(var mouse)
@@ -41,6 +43,16 @@ Item {
     Drag.active: mouseArea.drag.active && dockItem.draggable
     Drag.dragType: Drag.Automatic
     Drag.supportedActions: Qt.MoveAction
+    Drag.hotSpot.x: icon.width / 2
+    Drag.hotSpot.y: icon.height / 2
+
+    Drag.onDragStarted:  {
+        dragStarted = true
+    }
+
+    Drag.onDragFinished: {
+        dragStarted = false
+    }
 
     Image {
         id: icon
@@ -54,6 +66,8 @@ Item {
         height: sourceSize.height
         smooth: true
         cache: true
+
+        visible: !dragStarted
 
         anchors {
             horizontalCenter: parent.horizontalCenter
@@ -81,7 +95,7 @@ Item {
         anchors.fill: icon
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton
-        drag.target: icon
+        drag.axis: Drag.XAndYAxis
 
         onClicked: {
             if (mouse.button === Qt.RightButton)
@@ -95,9 +109,26 @@ Item {
             popupTips.hide()
         }
 
+        onPositionChanged: {
+            if (pressed) {
+                if (mouse.source !== Qt.MouseEventSynthesizedByQt) {
+                    drag.target = icon
+                    icon.grabToImage(function(result) {
+                        dockItem.Drag.imageSource = result.url
+                    })
+                } else {
+                    drag.target = null
+                }
+            }
+
+            dockItem.positionChanged()
+        }
+
         onPressAndHold : dockItem.pressAndHold(mouse)
-        onPositionChanged: dockItem.positionChanged()
-        onReleased: dockItem.released()
+        onReleased: {
+            drag.target = null
+            dockItem.released()
+        }
 
         onContainsMouseChanged: {
             if (containsMouse) {
@@ -123,7 +154,7 @@ Item {
         height: width
         color: isActive ? activateDotColor : inactiveDotColor
         radius: height
-        visible: enableActivateDot
+        visible: enableActivateDot && !dragStarted
         x: isLeft ? icon.x - activeDot.width : (parent.width - width) / 2
         y: isLeft ? (parent.height - height) / 2 : icon.y + icon.height
     }
