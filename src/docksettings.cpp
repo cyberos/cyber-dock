@@ -22,6 +22,7 @@ DockSettings::DockSettings(QObject *parent)
     , m_edgeMargins(10)
     , m_statusBarHeight(50)
     , m_direction(Left)
+    , m_visibility(AutoHide)
     , m_settings(new QSettings(QSettings::UserScope, "cyberos", "dock"))
     , m_fileWatcher(new QFileSystemWatcher(this))
 {
@@ -29,6 +30,8 @@ DockSettings::DockSettings(QObject *parent)
         m_settings->setValue("IconSize", 64);
     if (!m_settings->contains("Direction"))
         m_settings->setValue("Direction", Bottom);
+    if (!m_settings->contains("Visibility"))
+        m_settings->setValue("Visibility", AutoHide);
 
     m_iconSize = m_settings->value("IconSize").toInt();
     m_direction = static_cast<Direction>(m_settings->value("Direction").toInt());
@@ -57,6 +60,19 @@ void DockSettings::setDirection(const Direction &direction)
 {
     m_direction = direction;
     emit directionChanged();
+}
+
+DockSettings::Visibility DockSettings::visibility() const
+{
+    return m_visibility;
+}
+
+void DockSettings::setVisibility(const DockSettings::Visibility &visibility)
+{
+    if (m_visibility != visibility) {
+        m_visibility = visibility;
+        emit visibilityChanged();
+    }
 }
 
 int DockSettings::edgeMargins() const

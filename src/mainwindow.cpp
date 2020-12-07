@@ -22,6 +22,7 @@ MainWindow::MainWindow(QQuickView *parent)
     , m_settings(DockSettings::self())
     , m_appModel(new ApplicationModel)
     , m_resizeAnimation(new QVariantAnimation(this))
+    , m_ghostWindow(new GhostWindow)
 {
     m_resizeAnimation->setDuration(250);
     m_resizeAnimation->setEasingCurve(QEasingCurve::InOutQuad);
@@ -54,6 +55,25 @@ MainWindow::MainWindow(QQuickView *parent)
     connect(m_settings, &DockSettings::iconSizeChanged, this, &MainWindow::resizeWindow);
     connect(m_resizeAnimation, &QVariantAnimation::valueChanged, this, &MainWindow::onResizeValueChanged);
     connect(m_resizeAnimation, &QVariantAnimation::finished, this, &MainWindow::updateViewStruts);
+
+    m_hideWindowTimer.setInterval(2000);
+    m_hideWindowTimer.setSingleShot(true);
+    connect(&m_hideWindowTimer, &QTimer::timeout, this, [=] { setVisible(false); });
+
+    connect(m_ghostWindow, &GhostWindow::containsMouseChanged, this, [=] (bool containsMouse) {
+        if (containsMouse) {
+            setVisible(true);
+        }
+    });
+}
+
+bool MainWindow::event(QEvent *e)
+{
+    if (e->type() == QEvent::Leave && m_settings->visibility() == DockSettings::AutoHide) {
+        m_hideWindowTimer.start();
+    }
+
+    return QQuickView::event(e);
 }
 
 void MainWindow::updatePosition()
@@ -127,7 +147,12 @@ void MainWindow::resizeWindow()
     m_resizeAnimation->setEndValue(newSize);
     m_resizeAnimation->start();
 
-    setVisible(true);
+    if (m_settings->visibility() == DockSettings::AutoHide) {
+        setVisible(false);
+    } else {
+        setVisible(true);
+    }
+
 }
 
 void MainWindow::updateBlurRegion()
@@ -140,6 +165,10 @@ void MainWindow::updateBlurRegion()
 
 void MainWindow::updateViewStruts()
 {
+    if (m_settings->visibility() == DockSettings::AutoHide) {
+        return;
+    }
+
     XWindowInterface::instance()->setViewStruts(this, m_settings->direction(), geometry());
 }
 

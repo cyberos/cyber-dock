@@ -19,6 +19,12 @@ public:
     };
     Q_ENUMS(Direction)
 
+    enum Visibility {
+        AlwaysVisible = 0,
+        AutoHide
+    };
+    Q_ENUMS(Visibility)
+
     static DockSettings *self();
     explicit DockSettings(QObject *parent = nullptr);
 
@@ -27,6 +33,9 @@ public:
 
     Direction direction() const;
     void setDirection(const Direction &direction);
+
+    Visibility visibility() const;
+    void setVisibility(const Visibility &visibility);
 
     int edgeMargins() const;
     void setEdgeMargins(int edgeMargins);
@@ -40,12 +49,15 @@ private slots:
 signals:
     void iconSizeChanged();
     void directionChanged();
+    void visibilityChanged();
 
 private:
     int m_iconSize;
     int m_edgeMargins;
     int m_statusBarHeight;
+
     Direction m_direction;
+    Visibility m_visibility;
     QSettings *m_settings;
     QFileSystemWatcher *m_fileWatcher;
 };

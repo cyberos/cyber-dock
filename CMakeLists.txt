@@ -22,6 +22,7 @@ set(SRCS
     src/iconthemeimageprovider.cpp
     src/main.cpp
     src/mainwindow.cpp
+    src/ghostwindow.cpp
     src/systemappmonitor.cpp
     src/systemappitem.cpp
     src/processprovider.cpp

@@ -7,6 +7,7 @@
 
 #include "docksettings.h"
 #include "applicationmodel.h"
+#include "ghostwindow.h"
 
 class MainWindow : public QQuickView
 {
@@ -14,6 +15,9 @@ class MainWindow : public QQuickView
 
 public:
     explicit MainWindow(QQuickView *parent = nullptr);
+
+protected:
+    bool event(QEvent *e) override;
 
 private:
     void updatePosition();
@@ -28,6 +32,9 @@ private:
     DockSettings *m_settings;
     ApplicationModel *m_appModel;
     QVariantAnimation *m_resizeAnimation;
+    GhostWindow *m_ghostWindow;
+
+    QTimer m_hideWindowTimer;
 };
 
 #endif // MAINWINDOW_H
