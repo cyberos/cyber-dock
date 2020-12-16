@@ -20,6 +20,7 @@ private:
 
     void resizeWindow();
     void animationResizing();
+    void positionAnimationResizing();
     void updateBlurRegion();
     void updateViewStruts();
     void onAnimationValueChanged(const QVariant &value);

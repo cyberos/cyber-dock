@@ -49,7 +49,7 @@ MainWindow::MainWindow(QQuickView *parent)
     connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, &MainWindow::resizeWindow, Qt::QueuedConnection);
 
     connect(m_appModel, &ApplicationModel::countChanged, this, &MainWindow::animationResizing);
-    connect(m_settings, &DockSettings::directionChanged, this, &MainWindow::animationResizing);
+    connect(m_settings, &DockSettings::directionChanged, this, &MainWindow::positionAnimationResizing);
     connect(m_settings, &DockSettings::iconSizeChanged, this, &MainWindow::animationResizing);
 
     connect(m_resizeAnimation, &QVariantAnimation::valueChanged, this, &MainWindow::onAnimationValueChanged);
@@ -115,6 +115,28 @@ void MainWindow::animationResizing()
 {
     m_resizeAnimation->setStartValue(this->geometry());
     m_resizeAnimation->setEndValue(windowRect());
+    m_resizeAnimation->setDuration(250);
+    m_resizeAnimation->start();
+}
+
+void MainWindow::positionAnimationResizing()
+{
+    const QRect screenGeometry = qApp->primaryScreen()->geometry();
+    QRect rect = windowRect();
+
+    switch (m_settings->direction()) {
+    case DockSettings::Left:
+        m_resizeAnimation->setStartValue(QRect(screenGeometry.x() - rect.width(), rect.y(), rect.width(), rect.height()));
+        break;
+    case DockSettings::Bottom:
+        m_resizeAnimation->setStartValue(QRect(rect.x(), screenGeometry.height() + rect.height(), rect.width(), rect.height()));
+        break;
+    default:
+        break;
+    }
+
+    m_resizeAnimation->setEndValue(windowRect());
+    m_resizeAnimation->setDuration(300);
     m_resizeAnimation->start();
 }
 
