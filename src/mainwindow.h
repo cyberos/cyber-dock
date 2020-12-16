@@ -16,7 +16,10 @@ public:
     explicit MainWindow(QQuickView *parent = nullptr);
 
 private:
+    QRect windowRect() const;
+
     void resizeWindow();
+    void animationResizing();
     void updateBlurRegion();
     void updateViewStruts();
     void onAnimationValueChanged(const QVariant &value);

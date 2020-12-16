@@ -45,22 +45,19 @@ MainWindow::MainWindow(QQuickView *parent)
     setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     resizeWindow();
 
-    connect(qApp->primaryScreen(), &QScreen::virtualGeometryChanged, this, &MainWindow::resizeWindow);
-    connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, &MainWindow::resizeWindow);
+    connect(qApp->primaryScreen(), &QScreen::virtualGeometryChanged, this, &MainWindow::resizeWindow, Qt::QueuedConnection);
+    connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, &MainWindow::resizeWindow, Qt::QueuedConnection);
 
-    connect(m_appModel, &ApplicationModel::countChanged, this, &MainWindow::resizeWindow);
-    connect(m_settings, &DockSettings::directionChanged, this, &MainWindow::resizeWindow);
-    connect(m_settings, &DockSettings::iconSizeChanged, this, &MainWindow::resizeWindow);
+    connect(m_appModel, &ApplicationModel::countChanged, this, &MainWindow::animationResizing);
+    connect(m_settings, &DockSettings::directionChanged, this, &MainWindow::animationResizing);
+    connect(m_settings, &DockSettings::iconSizeChanged, this, &MainWindow::animationResizing);
+
     connect(m_resizeAnimation, &QVariantAnimation::valueChanged, this, &MainWindow::onAnimationValueChanged);
     connect(m_resizeAnimation, &QVariantAnimation::finished, this, &MainWindow::updateViewStruts);
 }
 
-void MainWindow::resizeWindow()
+QRect MainWindow::windowRect() const
 {
-    // Change the window size means that the number of dock items changes
-    // Need to hide popup tips.
-    // m_popupTips->hide();
-
     const QRect screenGeometry = qApp->primaryScreen()->geometry();
 
     // Launcher and Trash
@@ -103,12 +100,22 @@ void MainWindow::resizeWindow()
         break;
     }
 
-    // Start the resize animation
-    m_resizeAnimation->setStartValue(this->geometry());
-    m_resizeAnimation->setEndValue(QRect(position, newSize));
-    m_resizeAnimation->start();
+    return QRect(position, newSize);
+}
 
+void MainWindow::resizeWindow()
+{
+    setGeometry(windowRect());
+    updateBlurRegion();
+    updateViewStruts();
     setVisible(true);
+}
+
+void MainWindow::animationResizing()
+{
+    m_resizeAnimation->setStartValue(this->geometry());
+    m_resizeAnimation->setEndValue(windowRect());
+    m_resizeAnimation->start();
 }
 
 void MainWindow::updateBlurRegion()
