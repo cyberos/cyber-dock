@@ -47,39 +47,11 @@ MainWindow::MainWindow(QQuickView *parent)
 
     connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, &MainWindow::resizeWindow);
 
-    connect(this, &QQuickView::xChanged, this, &MainWindow::updatePosition);
-    connect(this, &QQuickView::yChanged, this, &MainWindow::updatePosition);
     connect(m_appModel, &ApplicationModel::countChanged, this, &MainWindow::resizeWindow);
     connect(m_settings, &DockSettings::directionChanged, this, &MainWindow::resizeWindow);
     connect(m_settings, &DockSettings::iconSizeChanged, this, &MainWindow::resizeWindow);
-    connect(m_resizeAnimation, &QVariantAnimation::valueChanged, this, &MainWindow::onResizeValueChanged);
+    connect(m_resizeAnimation, &QVariantAnimation::valueChanged, this, &MainWindow::onAnimationValueChanged);
     connect(m_resizeAnimation, &QVariantAnimation::finished, this, &MainWindow::updateViewStruts);
-}
-
-void MainWindow::updatePosition()
-{
-    const QRect screenGeometry = screen()->geometry();
-    QPoint position = {0, 0};
-
-    switch (m_settings->direction()) {
-    case DockSettings::Left: {
-        position = { screenGeometry.x() + DockSettings::self()->edgeMargins() / 2, screenGeometry.y() };
-        position.setY((screenGeometry.height() + DockSettings::self()->statusBarHeight() - geometry().height()) / 2);
-        break;
-    }
-    case DockSettings::Bottom: {
-        position = { screenGeometry.x(), screenGeometry.y() +
-                                         screenGeometry.height() -
-                                         height() - DockSettings::self()->edgeMargins() / 2 };
-        position.setX((screenGeometry.width() - geometry().width()) / 2);
-        break;
-    }
-    default:
-        break;
-    }
-
-    setX(position.x());
-    setY(position.y());
 }
 
 void MainWindow::resizeWindow()
@@ -110,21 +82,29 @@ void MainWindow::resizeWindow()
     }
 
     QSize newSize(0, 0);
+    QPoint position(0, 0);
 
     switch (m_settings->direction()) {
     case DockSettings::Left:
         newSize = QSize(calcIconSize, calcLength);
+        position = { screenGeometry.x() + DockSettings::self()->edgeMargins() / 2,
+                     (screenGeometry.height() + DockSettings::self()->statusBarHeight() - newSize.height()) / 2
+                   };
         break;
     case DockSettings::Bottom:
         newSize = QSize(calcLength, calcIconSize);
+        position = { (screenGeometry.width() - newSize.width()) / 2,
+                     screenGeometry.y() + screenGeometry.height() - newSize.height()
+                     - DockSettings::self()->edgeMargins() / 2
+                   };
         break;
     default:
         break;
     }
 
     // Start the resize animation
-    m_resizeAnimation->setStartValue(this->size());
-    m_resizeAnimation->setEndValue(newSize);
+    m_resizeAnimation->setStartValue(this->geometry());
+    m_resizeAnimation->setEndValue(QRect(position, newSize));
     m_resizeAnimation->start();
 
     setVisible(true);
@@ -143,13 +123,10 @@ void MainWindow::updateViewStruts()
     XWindowInterface::instance()->setViewStruts(this, m_settings->direction(), geometry());
 }
 
-void MainWindow::onResizeValueChanged(const QVariant &value)
+void MainWindow::onAnimationValueChanged(const QVariant &value)
 {
-    const QSize &s = value.toSize();
-    setMinimumSize(s);
-    setMaximumSize(s);
-    resize(s);
-    updatePosition();
+    QRect geometry = value.toRect();
+    setGeometry(geometry);
     updateBlurRegion();
 }
 

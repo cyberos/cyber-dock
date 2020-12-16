@@ -16,11 +16,10 @@ public:
     explicit MainWindow(QQuickView *parent = nullptr);
 
 private:
-    void updatePosition();
     void resizeWindow();
     void updateBlurRegion();
     void updateViewStruts();
-    void onResizeValueChanged(const QVariant &value);
+    void onAnimationValueChanged(const QVariant &value);
 
     QRegion cornerMask(const QRect &rect, const int r);
 
