@@ -126,9 +126,11 @@ void MainWindow::positionAnimationResizing()
 
     switch (m_settings->direction()) {
     case DockSettings::Left:
+        setGeometry(QRect(screenGeometry.x() - rect.width(), rect.y(), rect.width(), rect.height()));
         m_resizeAnimation->setStartValue(QRect(screenGeometry.x() - rect.width(), rect.y(), rect.width(), rect.height()));
         break;
     case DockSettings::Bottom:
+        setGeometry(QRect(rect.x(), screenGeometry.height() + rect.height(), rect.width(), rect.height()));
         m_resizeAnimation->setStartValue(QRect(rect.x(), screenGeometry.height() + rect.height(), rect.width(), rect.height()));
         break;
     default:
