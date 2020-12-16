@@ -45,6 +45,7 @@ MainWindow::MainWindow(QQuickView *parent)
     setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     resizeWindow();
 
+    connect(qApp->primaryScreen(), &QScreen::virtualGeometryChanged, this, &MainWindow::resizeWindow);
     connect(qApp->primaryScreen(), &QScreen::geometryChanged, this, &MainWindow::resizeWindow);
 
     connect(m_appModel, &ApplicationModel::countChanged, this, &MainWindow::resizeWindow);
