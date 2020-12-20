@@ -25,7 +25,10 @@ DockItem {
     onRightClicked: contextMenu.open()
 
     dropArea.onEntered: {
-        appModel.move(drag.source.dragItemIndex, dragItemIndex)
+        if (drag.source)
+            appModel.move(drag.source.dragItemIndex, appItem.dragItemIndex)
+        else if (drag.hasUrls)
+            appModel.raiseWindow(model.appId)
     }
 
     dropArea.onDropped: {

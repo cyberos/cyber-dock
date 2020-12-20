@@ -93,6 +93,16 @@ void ApplicationModel::clicked(const QString &id)
     }
 }
 
+void ApplicationModel::raiseWindow(const QString &id)
+{
+    ApplicationItem *item = findItemById(id);
+
+    if (!item)
+        return;
+
+    m_iface->forceActiveWindow(item->wids.at(item->currentActive));
+}
+
 bool ApplicationModel::openNewInstance(const QString &appId)
 {
     ApplicationItem *item = findItemById(appId);

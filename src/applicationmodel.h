@@ -29,6 +29,7 @@ public:
     Q_INVOKABLE void save() { savePinAndUnPinList(); }
 
     Q_INVOKABLE void clicked(const QString &id);
+    Q_INVOKABLE void raiseWindow(const QString &id);
 
     Q_INVOKABLE bool openNewInstance(const QString &appId);
     Q_INVOKABLE void closeAllByAppId(const QString &appId);
