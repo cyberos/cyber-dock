@@ -57,6 +57,7 @@ MainWindow::MainWindow(QQuickView *parent)
     engine()->rootContext()->setContextProperty("appModel", m_appModel);
     engine()->rootContext()->setContextProperty("process", new ProcessProvider);
     engine()->rootContext()->setContextProperty("Settings", m_settings);
+    engine()->rootContext()->setContextProperty("rootWindow", this);
 
     setResizeMode(QQuickView::SizeRootObjectToView);
     setClearBeforeRendering(true);
