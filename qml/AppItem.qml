@@ -6,10 +6,12 @@ import org.cyber.Dock 1.0
 DockItem {
     id: appItem
 
+    property var windowCount: model.windowCount
+
     iconName: model.iconName
     isActive: model.isActive
     popupText: model.visibleName
-    enableActivateDot: model.windowCount !== 0
+    enableActivateDot: windowCount !== 0
     draggable: true
     dragItemIndex: index
 
@@ -17,6 +19,11 @@ DockItem {
         appModel.updateGeometries(model.appId, Qt.rect(appItem.mapToGlobal(0, 0).x,
                                                        appItem.mapToGlobal(0, 0).y,
                                                        appItem.width, appItem.height))
+    }
+
+    onWindowCountChanged: {
+        if (windowCount > 0)
+            updateGeometry()
     }
 
     onPositionChanged: updateGeometry()
@@ -41,13 +48,13 @@ DockItem {
 
         MenuItem {
             text: qsTr("Open")
-            visible: model.windowCount === 0
+            visible: windowCount === 0
             onTriggered: appModel.openNewInstance(model.appId)
         }
 
         MenuItem {
             text: model.visibleName
-            visible: model.windowCount > 0
+            visible: windowCount > 0
             onTriggered: appModel.openNewInstance(model.appId)
         }
 
@@ -60,7 +67,7 @@ DockItem {
 
         MenuItem {
             text: qsTr("Close All")
-            visible: model.windowCount !== 0
+            visible: windowCount !== 0
             onTriggered: appModel.closeAllByAppId(model.appId)
         }
     }
