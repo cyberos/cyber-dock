@@ -80,7 +80,7 @@ Item {
             enableActivateDot: false
             iconName: "qrc:/svg/launcher.svg"
             popupText: qsTr("Launcher")
-            onClicked: process.start("cyber-launcher")
+            onClicked: process.startDetached("cyber-launcher")
         }
 
         ListView {
