@@ -1,5 +1,5 @@
 import QtQuick 2.12
-import QtQuick.Controls 2.5
+import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.0
 import org.cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
@@ -7,8 +7,8 @@ import MeuiKit 1.0 as Meui
 Item {
     id: dockItem
 
-    implicitWidth: (Settings.direction === DockSettings.Left) ? root.width : root.height
-    implicitHeight: (Settings.direction === DockSettings.Left) ? root.width : root.height
+//    implicitWidth: (Settings.direction === DockSettings.Left) ? root.width : root.height
+//    implicitHeight: (Settings.direction === DockSettings.Left) ? root.width : root.height
 
     property bool isLeft: Settings.direction === DockSettings.Left
 
@@ -56,23 +56,19 @@ Item {
 
     Image {
         id: icon
+        anchors.centerIn: parent
         source: {
             return iconName ? iconName.indexOf("/") === 0 || iconName.indexOf("file://") === 0 || iconName.indexOf("qrc") === 0
                             ? iconName : "image://icontheme/" + iconName : iconName;
         }
-        sourceSize.width: parent.height * iconSizeRatio
-        sourceSize.height: parent.height * iconSizeRatio
+        sourceSize.width: dockItem.width * iconSizeRatio
+        sourceSize.height: dockItem.width * iconSizeRatio
         width: sourceSize.width
         height: sourceSize.height
         smooth: true
         cache: true
 
         visible: !dragStarted
-
-        anchors {
-            horizontalCenter: parent.horizontalCenter
-            verticalCenter: parent.verticalCenter
-        }
 
         ColorOverlay {
             id: iconColorize

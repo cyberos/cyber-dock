@@ -18,6 +18,8 @@ find_package(MeuiKit REQUIRED)
 set(SRCS
     src/applicationitem.h
     src/applicationmodel.cpp
+    src/battery.cpp
+    src/brightness.cpp
     src/docksettings.cpp
     src/iconthemeimageprovider.cpp
     src/main.cpp
@@ -26,6 +28,7 @@ set(SRCS
     src/systemappitem.cpp
     src/processprovider.cpp
     src/trashmanager.cpp
+    src/volumemanager.cpp
     src/utils.cpp
     src/xwindowinterface.cpp
 )

@@ -20,6 +20,9 @@
 #include "mainwindow.h"
 #include "iconthemeimageprovider.h"
 #include "processprovider.h"
+#include "volumemanager.h"
+#include "battery.h"
+#include "brightness.h"
 
 #include <QGuiApplication>
 #include <QScreen>
@@ -54,6 +57,10 @@ MainWindow::MainWindow(QQuickView *parent)
     KWindowSystem::setType(winId(), NET::Dock);
 
     qmlRegisterType<DockSettings>("org.cyber.Dock", 1, 0, "DockSettings");
+    qmlRegisterType<VolumeManager>("org.cyber.Dock", 1, 0, "Volume");
+    qmlRegisterType<Battery>("org.cyber.Dock", 1, 0, "Battery");
+    qmlRegisterType<Brightness>("org.cyber.Dock", 1, 0, "Brightness");
+
     engine()->rootContext()->setContextProperty("appModel", m_appModel);
     engine()->rootContext()->setContextProperty("process", new ProcessProvider);
     engine()->rootContext()->setContextProperty("Settings", m_settings);
@@ -80,37 +87,18 @@ QRect MainWindow::windowRect() const
 {
     const QRect screenGeometry = qApp->primaryScreen()->geometry();
 
-    // Launcher and Trash
-    const int fixedItemCount = 2;
-
-    const int maxLength = (m_settings->direction() == DockSettings::Left) ?
-                           screenGeometry.height() - DockSettings::self()->statusBarHeight() - m_settings->edgeMargins() :
-                           screenGeometry.width() - m_settings->edgeMargins();
-    int calcIconSize = m_settings->iconSize();
-    int allCount = m_appModel->rowCount() + fixedItemCount;
-    int calcLength = allCount * calcIconSize;
-
-    // Cannot be greater than the screen length.
-    while (1) {
-        if (calcLength < maxLength)
-            break;
-
-        calcIconSize -= 1;
-        calcLength = allCount * calcIconSize;
-    }
-
     QSize newSize(0, 0);
     QPoint position(0, 0);
 
     switch (m_settings->direction()) {
     case DockSettings::Left:
-        newSize = QSize(calcIconSize, calcLength);
+        newSize = QSize(m_settings->iconSize(), screenGeometry.height() - DockSettings::self()->statusBarHeight() - m_settings->edgeMargins());
         position = { screenGeometry.x() + DockSettings::self()->edgeMargins() / 2,
                      (screenGeometry.height() + DockSettings::self()->statusBarHeight() - newSize.height()) / 2
                    };
         break;
     case DockSettings::Bottom:
-        newSize = QSize(calcLength, calcIconSize);
+        newSize = QSize(screenGeometry.width() - DockSettings::self()->edgeMargins(), m_settings->iconSize());
         position = { (screenGeometry.width() - newSize.width()) / 2,
                      screenGeometry.y() + screenGeometry.height() - newSize.height()
                      - DockSettings::self()->edgeMargins() / 2
@@ -119,6 +107,46 @@ QRect MainWindow::windowRect() const
     default:
         break;
     }
+
+//    // Launcher and Trash
+//    const int fixedItemCount = 2;
+
+//    const int maxLength = (m_settings->direction() == DockSettings::Left) ?
+//                           screenGeometry.height() - DockSettings::self()->statusBarHeight() - m_settings->edgeMargins() :
+//                           screenGeometry.width() - m_settings->edgeMargins();
+//    int calcIconSize = m_settings->iconSize();
+//    int allCount = m_appModel->rowCount() + fixedItemCount;
+//    int calcLength = allCount * calcIconSize;
+
+//    // Cannot be greater than the screen length.
+//    while (1) {
+//        if (calcLength < maxLength)
+//            break;
+
+//        calcIconSize -= 1;
+//        calcLength = allCount * calcIconSize;
+//    }
+
+//    QSize newSize(0, 0);
+//    QPoint position(0, 0);
+
+//    switch (m_settings->direction()) {
+//    case DockSettings::Left:
+//        newSize = QSize(calcIconSize, calcLength);
+//        position = { screenGeometry.x() + DockSettings::self()->edgeMargins() / 2,
+//                     (screenGeometry.height() + DockSettings::self()->statusBarHeight() - newSize.height()) / 2
+//                   };
+//        break;
+//    case DockSettings::Bottom:
+//        newSize = QSize(calcLength, calcIconSize);
+//        position = { (screenGeometry.width() - newSize.width()) / 2,
+//                     screenGeometry.y() + screenGeometry.height() - newSize.height()
+//                     - DockSettings::self()->edgeMargins() / 2
+//                   };
+//        break;
+//    default:
+//        break;
+//    }
 
     return QRect(position, newSize);
 }
