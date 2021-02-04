@@ -6,26 +6,22 @@ import org.cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
 import QtGraphicalEffects 1.0
 
-Window {
+ControlCenterDialog {
     id: control
     width: 500
     height: _mainLayout.implicitHeight + Meui.Units.largeSpacing * 4
 
-    flags: Qt.FramelessWindowHint
     color: "transparent"
 
     Brightness {
         id: brightness
     }
 
-    Rectangle {
+    Meui.RoundedRect {
         id: _background
         anchors.fill: parent
-        radius: Meui.Theme.bigRadius
-        color: Meui.Theme.backgroundColor
+        roundedRadius: control.height * 0.05
         opacity: 0.7
-        border.color: Meui.Theme.textColor
-        border.width: 1
     }
 
     Meui.WindowShadow {

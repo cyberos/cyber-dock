@@ -23,6 +23,7 @@
 #include "volumemanager.h"
 #include "battery.h"
 #include "brightness.h"
+#include "controlcenterdialog.h"
 
 #include <QGuiApplication>
 #include <QScreen>
@@ -60,6 +61,7 @@ MainWindow::MainWindow(QQuickView *parent)
     qmlRegisterType<VolumeManager>("org.cyber.Dock", 1, 0, "Volume");
     qmlRegisterType<Battery>("org.cyber.Dock", 1, 0, "Battery");
     qmlRegisterType<Brightness>("org.cyber.Dock", 1, 0, "Brightness");
+    qmlRegisterType<ControlCenterDialog>("org.cyber.Dock", 1, 0, "ControlCenterDialog");
 
     engine()->rootContext()->setContextProperty("appModel", m_appModel);
     engine()->rootContext()->setContextProperty("process", new ProcessProvider);
@@ -92,13 +94,13 @@ QRect MainWindow::windowRect() const
 
     switch (m_settings->direction()) {
     case DockSettings::Left:
-        newSize = QSize(m_settings->iconSize(), screenGeometry.height() - DockSettings::self()->statusBarHeight() - m_settings->edgeMargins());
+        newSize = QSize(m_settings->iconSize(), screenGeometry.height() - DockSettings::self()->statusBarHeight() - m_settings->edgeMargins() * 2);
         position = { screenGeometry.x() + DockSettings::self()->edgeMargins() / 2,
                      (screenGeometry.height() + DockSettings::self()->statusBarHeight() - newSize.height()) / 2
                    };
         break;
     case DockSettings::Bottom:
-        newSize = QSize(screenGeometry.width() - DockSettings::self()->edgeMargins(), m_settings->iconSize());
+        newSize = QSize(screenGeometry.width() - DockSettings::self()->edgeMargins() * 2, m_settings->iconSize());
         position = { (screenGeometry.width() - newSize.width()) / 2,
                      screenGeometry.y() + screenGeometry.height() - newSize.height()
                      - DockSettings::self()->edgeMargins() / 2

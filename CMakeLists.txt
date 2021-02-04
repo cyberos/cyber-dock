@@ -20,6 +20,7 @@ set(SRCS
     src/applicationmodel.cpp
     src/battery.cpp
     src/brightness.cpp
+    src/controlcenterdialog.cpp
     src/docksettings.cpp
     src/iconthemeimageprovider.cpp
     src/main.cpp
