@@ -11,7 +11,35 @@ ControlCenterDialog {
     width: 500
     height: _mainLayout.implicitHeight + Meui.Units.largeSpacing * 4
 
+    property point position: Qt.point(0, 0)
+
+    onPositionChanged: adjustCorrectLocation()
+
     color: "transparent"
+
+    function adjustCorrectLocation() {
+        var posX = control.position.x
+        var posY = control.position.y
+
+        // left
+        if (posX < 0)
+            posX = Meui.Units.largeSpacing
+
+        // top
+        if (posY < 0)
+            posY = Meui.Units.largeSpacing
+
+        // right
+        if (posX + control.width > Screen.width)
+            posX = Screen.width - control.width - Meui.Units.largeSpacing
+
+        // bottom
+        if (posY > control.height > Screen.width)
+            posY = Screen.width - control.width - Meui.Units.largeSpacing
+
+        control.x = posX
+        control.y = posY
+    }
 
     Brightness {
         id: brightness

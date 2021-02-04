@@ -132,8 +132,7 @@ Item {
                     controlCenter.visible = false
                 else {
                     controlCenter.visible = true
-                    controlCenter.x = mapToGlobal(0, 0).x - 347
-                    controlCenter.y = mapToGlobal(0, 0).y
+                    controlCenter.position = Qt.point(mapToGlobal(0, 0).x, mapToGlobal(0, 0).y)
                 }
             }
 
