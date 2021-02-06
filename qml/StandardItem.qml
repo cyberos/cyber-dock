@@ -7,6 +7,7 @@ Item {
     id: control
 
     signal clicked
+    signal rightClicked
 
     MouseArea {
         id: _mouseArea
@@ -17,6 +18,8 @@ Item {
         onClicked: {
             if (mouse.button == Qt.LeftButton)
                 control.clicked()
+            else if (mouse.button == Qt.RightButton)
+                control.rightClicked()
         }
     }
 

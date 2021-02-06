@@ -124,6 +124,43 @@ Item {
             }
         }
 
+//        ListView {
+//            spacing: Meui.Units.largeSpacing
+//            Layout.preferredWidth: count * root.height + (count - 1) * spacing
+//            Layout.preferredHeight: isHorizontal ? mainLayout.height * 0.7 : controlLayout.implicitHeight
+//            Layout.alignment: Qt.AlignCenter
+//            model: trayModel
+//            orientation: Qt.Horizontal
+//            layoutDirection: Qt.RightToLeft
+//            interactive: false
+//            clip: true
+
+//            StatusNotifierModel {
+//                id: trayModel
+//            }
+
+//            delegate: StandardItem {
+//                width: isHorizontal ? mainLayout.height * 0.7 : controlLayout.implicitHeight
+//                height: width
+
+//                Image {
+//                    anchors.centerIn: parent
+//                    source: iconName ? "image://icontheme/" + iconName
+//                                     : iconBytes ? "data:image/png;base64," + iconBytes
+//                                                 : "image://icontheme/application-x-desktop"
+//                    width: 16
+//                    height: width
+//                    sourceSize.width: width
+//                    sourceSize.height: height
+//                    asynchronous: true
+//                }
+
+//                onClicked: trayModel.leftButtonClick(id)
+//                onRightClicked: trayModel.rightButtonClick(id)
+//                // popupText: toolTip ? toolTip : title
+//            }
+//        }
+
         StandardItem {
             id: controlItem
             Layout.preferredWidth: isHorizontal ? controlLayout.implicitWidth : mainLayout.width * 0.7
@@ -149,6 +186,8 @@ Item {
                 Image {
                     id: batteryIcon
                     visible: battery.available
+                    width: 22
+                    height: 16
                     sourceSize: Qt.size(width, height)
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + battery.iconSource
                     asynchronous: true
@@ -159,6 +198,9 @@ Item {
                     id: volumeIcon
                     visible: volume.isValid
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + volume.iconName + ".svg"
+                    width: 16
+                    height: width
+                    sourceSize: Qt.size(width, height)
                     asynchronous: true
                     Layout.alignment: Qt.AlignCenter
                 }
@@ -166,7 +208,7 @@ Item {
                 Label {
                     id: timeLabel
                     Layout.alignment: Qt.AlignCenter
-                    font.pixelSize: isHorizontal ? controlLayout.height / 5 : controlLayout.width / 5
+                    font.pixelSize: isHorizontal ? controlLayout.height / 4 : controlLayout.width / 5
 
                     Timer {
                         interval: 1000

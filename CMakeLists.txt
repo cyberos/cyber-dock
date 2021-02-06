@@ -10,9 +10,10 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(QT Core Widgets Quick QuickControls2 X11Extras DBus)
+set(QT Core Widgets Concurrent Quick QuickControls2 X11Extras DBus)
 find_package(Qt5 REQUIRED ${QT})
 find_package(KF5WindowSystem REQUIRED)
+find_package(dbusmenu-qt5 REQUIRED)
 find_package(MeuiKit REQUIRED)
 
 set(SRCS
@@ -32,6 +33,13 @@ set(SRCS
     src/volumemanager.cpp
     src/utils.cpp
     src/xwindowinterface.cpp
+
+    src/statusnotifier/dbustypes.cpp
+    src/statusnotifier/sniasync.cpp
+    src/statusnotifier/statusnotifieriteminterface.cpp
+    src/statusnotifier/statusnotifiermodel.cpp
+    src/statusnotifier/statusnotifierwatcher.cpp
+    src/statusnotifier/statusnotifieritemsource.cpp
 )
 
 set(RESOURCES
@@ -45,11 +53,13 @@ target_link_libraries(${PROJECT_NAME}
         Qt5::Quick
         Qt5::QuickControls2
         Qt5::X11Extras
+        Qt5::Concurrent
         Qt5::DBus
 
         MeuiKit
 
         KF5::WindowSystem
+        dbusmenu-qt5
 )
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION /usr/bin)

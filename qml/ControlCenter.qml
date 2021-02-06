@@ -183,6 +183,24 @@ ControlCenterDialog {
         }
 
         RowLayout {
+            Label {
+                id: timeLabel
+
+                Timer {
+                    interval: 1000
+                    repeat: true
+                    running: true
+                    triggeredOnStart: true
+                    onTriggered: {
+                        timeLabel.text = new Date().toLocaleString(Qt.locale(), Locale.ShortFormat)
+                    }
+                }
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
             RowLayout {
                 Image {
                     id: batteryIcon
@@ -195,24 +213,6 @@ ControlCenterDialog {
                 Label {
                     text: battery.chargePercent + "%"
                     color: Meui.Theme.textColor
-                }
-            }
-
-            Item {
-                Layout.fillWidth: true
-            }
-
-            Label {
-                id: timeLabel
-
-                Timer {
-                    interval: 1000
-                    repeat: true
-                    running: true
-                    triggeredOnStart: true
-                    onTriggered: {
-                        timeLabel.text = new Date().toLocaleString(Qt.locale(), Locale.ShortFormat)
-                    }
                 }
             }
         }

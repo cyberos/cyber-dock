@@ -47,7 +47,7 @@ Item {
     Image {
         id: iconImage
         anchors.centerIn: parent
-        width: parent.height * 0.7
+        width: parent.height * 0.8
         height: width
         sourceSize.width: width
         sourceSize.height: height

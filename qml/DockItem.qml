@@ -7,9 +7,6 @@ import MeuiKit 1.0 as Meui
 Item {
     id: dockItem
 
-//    implicitWidth: (Settings.direction === DockSettings.Left) ? root.width : root.height
-//    implicitHeight: (Settings.direction === DockSettings.Left) ? root.width : root.height
-
     property bool isLeft: Settings.direction === DockSettings.Left
 
     property bool draggable: false

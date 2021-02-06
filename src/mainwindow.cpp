@@ -24,6 +24,7 @@
 #include "battery.h"
 #include "brightness.h"
 #include "controlcenterdialog.h"
+#include "statusnotifier/statusnotifiermodel.h"
 
 #include <QGuiApplication>
 #include <QScreen>
@@ -62,6 +63,7 @@ MainWindow::MainWindow(QQuickView *parent)
     qmlRegisterType<Battery>("org.cyber.Dock", 1, 0, "Battery");
     qmlRegisterType<Brightness>("org.cyber.Dock", 1, 0, "Brightness");
     qmlRegisterType<ControlCenterDialog>("org.cyber.Dock", 1, 0, "ControlCenterDialog");
+    qmlRegisterType<StatusNotifierModel>("org.cyber.Dock", 1, 0, "StatusNotifierModel");
 
     engine()->rootContext()->setContextProperty("appModel", m_appModel);
     engine()->rootContext()->setContextProperty("process", new ProcessProvider);
