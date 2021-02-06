@@ -208,7 +208,7 @@ Item {
                 Label {
                     id: timeLabel
                     Layout.alignment: Qt.AlignCenter
-                    font.pixelSize: isHorizontal ? controlLayout.height / 4 : controlLayout.width / 5
+                    font.pixelSize: isHorizontal ? controlLayout.height / 3 : controlLayout.width / 5
 
                     Timer {
                         interval: 1000
