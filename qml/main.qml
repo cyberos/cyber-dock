@@ -5,8 +5,8 @@ import org.cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
 
 Item {
-    visible: true
     id: root
+    visible: true
     clip: true
 
     property color backgroundColor: Meui.Theme.darkMode ? Qt.rgba(0, 0, 0, 0.1) : Qt.rgba(255, 255, 255, 0.45)
@@ -15,6 +15,21 @@ Item {
     property color inactiveDotColor: Meui.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.6) : Qt.rgba(0, 0, 0, 0.9)
     property real windowRadius: (Settings.direction === DockSettings.Left) ? root.width * 0.3 : root.height * 0.3
     property bool isHorizontal: Settings.direction !== DockSettings.Left
+    property var appViewLength: isHorizontal ? appItemView.width : appItemView.height
+    property var iconSize: 0
+
+    function calcIconSize() {
+        var size = Settings.iconSize
+
+        while (1) {
+            if (appItemView.count * size <= root.appViewLength)
+                break
+
+            size--
+        }
+
+        root.iconSize = size
+    }
 
     Volume {
         id: volume
@@ -75,12 +90,13 @@ Item {
 
         DockItem {
             id: launcherItem
-            implicitWidth: appItemView.iconSize
-            implicitHeight: appItemView.iconSize
+            implicitWidth: root.iconSize
+            implicitHeight: root.iconSize
             enableActivateDot: false
             iconName: "qrc:/svg/launcher.svg"
             popupText: qsTr("Launcher")
             onClicked: process.startDetached("cyber-launcher")
+            Layout.alignment: Qt.AlignCenter
         }
 
         ListView {
@@ -89,29 +105,15 @@ Item {
             snapMode: ListView.SnapToItem
             clip: true
             model: appModel
+            interactive: false
 
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            property var iconSize: {
-                var size = Settings.iconSize
-
-                while (1) {
-                    if (appItemView.count * size <= appItemView.width)
-                        break
-
-                    size--
-                }
-
-                return size
-            }
-
             delegate: AppItem {
-                implicitWidth: appItemView.iconSize
-                implicitHeight: appItemView.height
+                implicitWidth: isHorizontal ? root.iconSize : appItemView.width
+                implicitHeight: isHorizontal ? appItemView.height : root.iconSize
             }
-
-            interactive: false
 
             moveDisplaced: Transition {
                 NumberAnimation {
@@ -124,8 +126,9 @@ Item {
 
         StandardItem {
             id: controlItem
-            Layout.preferredWidth: controlLayout.implicitWidth
-            Layout.preferredHeight: mainLayout.height * 0.7
+            Layout.preferredWidth: isHorizontal ? controlLayout.implicitWidth : mainLayout.width * 0.7
+            Layout.preferredHeight: isHorizontal ? mainLayout.height * 0.7 : controlLayout.implicitHeight
+            Layout.alignment: Qt.AlignCenter
 
             onClicked: {
                 if (controlCenter.visible)
@@ -149,6 +152,7 @@ Item {
                     sourceSize: Qt.size(width, height)
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + battery.iconSource
                     asynchronous: true
+                    Layout.alignment: Qt.AlignCenter
                 }
 
                 Image {
@@ -156,10 +160,13 @@ Item {
                     visible: volume.isValid
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + volume.iconName + ".svg"
                     asynchronous: true
+                    Layout.alignment: Qt.AlignCenter
                 }
 
                 Label {
                     id: timeLabel
+                    Layout.alignment: Qt.AlignCenter
+                    font.pixelSize: isHorizontal ? controlLayout.height / 5 : controlLayout.width / 5
 
                     Timer {
                         interval: 1000

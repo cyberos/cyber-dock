@@ -61,8 +61,8 @@ Item {
             return iconName ? iconName.indexOf("/") === 0 || iconName.indexOf("file://") === 0 || iconName.indexOf("qrc") === 0
                             ? iconName : "image://icontheme/" + iconName : iconName;
         }
-        sourceSize.width: dockItem.width * iconSizeRatio
-        sourceSize.height: dockItem.width * iconSizeRatio
+        sourceSize.width: (isLeft ? dockItem.height : dockItem.width) * iconSizeRatio
+        sourceSize.height: (isLeft ? dockItem.height : dockItem.width) * iconSizeRatio
         width: sourceSize.width
         height: sourceSize.height
         smooth: true

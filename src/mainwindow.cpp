@@ -94,9 +94,9 @@ QRect MainWindow::windowRect() const
 
     switch (m_settings->direction()) {
     case DockSettings::Left:
-        newSize = QSize(m_settings->iconSize(), screenGeometry.height() - DockSettings::self()->statusBarHeight() - m_settings->edgeMargins() * 2);
+        newSize = QSize(m_settings->iconSize(), screenGeometry.height() - m_settings->edgeMargins() * 2);
         position = { screenGeometry.x() + DockSettings::self()->edgeMargins() / 2,
-                     (screenGeometry.height() + DockSettings::self()->statusBarHeight() - newSize.height()) / 2
+                     (screenGeometry.height() - newSize.height()) / 2
                    };
         break;
     case DockSettings::Bottom:
@@ -109,46 +109,6 @@ QRect MainWindow::windowRect() const
     default:
         break;
     }
-
-//    // Launcher and Trash
-//    const int fixedItemCount = 2;
-
-//    const int maxLength = (m_settings->direction() == DockSettings::Left) ?
-//                           screenGeometry.height() - DockSettings::self()->statusBarHeight() - m_settings->edgeMargins() :
-//                           screenGeometry.width() - m_settings->edgeMargins();
-//    int calcIconSize = m_settings->iconSize();
-//    int allCount = m_appModel->rowCount() + fixedItemCount;
-//    int calcLength = allCount * calcIconSize;
-
-//    // Cannot be greater than the screen length.
-//    while (1) {
-//        if (calcLength < maxLength)
-//            break;
-
-//        calcIconSize -= 1;
-//        calcLength = allCount * calcIconSize;
-//    }
-
-//    QSize newSize(0, 0);
-//    QPoint position(0, 0);
-
-//    switch (m_settings->direction()) {
-//    case DockSettings::Left:
-//        newSize = QSize(calcIconSize, calcLength);
-//        position = { screenGeometry.x() + DockSettings::self()->edgeMargins() / 2,
-//                     (screenGeometry.height() + DockSettings::self()->statusBarHeight() - newSize.height()) / 2
-//                   };
-//        break;
-//    case DockSettings::Bottom:
-//        newSize = QSize(calcLength, calcIconSize);
-//        position = { (screenGeometry.width() - newSize.width()) / 2,
-//                     screenGeometry.y() + screenGeometry.height() - newSize.height()
-//                     - DockSettings::self()->edgeMargins() / 2
-//                   };
-//        break;
-//    default:
-//        break;
-//    }
 
     return QRect(position, newSize);
 }
@@ -202,6 +162,10 @@ void MainWindow::updateBlurRegion()
 
 void MainWindow::updateViewStruts()
 {
+    QObject *mainObject = rootObject();
+    if (mainObject)
+        QMetaObject::invokeMethod(mainObject, "calcIconSize");
+
     XWindowInterface::instance()->setViewStruts(this, m_settings->direction(), geometry());
 }
 
