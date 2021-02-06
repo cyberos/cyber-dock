@@ -203,9 +203,9 @@ ControlCenterDialog {
             }
 
             RowLayout {
+                visible: battery.available
                 Image {
                     id: batteryIcon
-                    visible: battery.available
                     sourceSize: Qt.size(width, height)
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + battery.iconSource
                     asynchronous: true
