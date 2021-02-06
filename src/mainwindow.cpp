@@ -120,6 +120,7 @@ void MainWindow::resizeWindow()
     setGeometry(windowRect());
     updateBlurRegion();
     updateViewStruts();
+    updateIconSize();
     setVisible(true);
 }
 
@@ -164,11 +165,15 @@ void MainWindow::updateBlurRegion()
 
 void MainWindow::updateViewStruts()
 {
+    XWindowInterface::instance()->setViewStruts(this, m_settings->direction(), geometry());
+    updateIconSize();
+}
+
+void MainWindow::updateIconSize()
+{
     QObject *mainObject = rootObject();
     if (mainObject)
         QMetaObject::invokeMethod(mainObject, "calcIconSize");
-
-    XWindowInterface::instance()->setViewStruts(this, m_settings->direction(), geometry());
 }
 
 void MainWindow::onAnimationValueChanged(const QVariant &value)

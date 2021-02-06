@@ -49,6 +49,7 @@ ControlCenterDialog {
         id: _background
         anchors.fill: parent
         roundedRadius: control.height * 0.05
+        backgroundColor: Meui.Theme.secondBackgroundColor
         opacity: 0.7
     }
 
@@ -101,12 +102,12 @@ ControlCenterDialog {
             height: 50
             visible: true
 
-            Rectangle {
+            Meui.RoundedRect {
                 id: brightnessItemBg
                 anchors.fill: parent
                 anchors.margins: 0
-                radius: Meui.Theme.bigRadius
-                color: Meui.Theme.backgroundColor
+                roundedRadius: Meui.Theme.bigRadius
+                backgroundColor: Meui.Theme.secondBackgroundColor
                 opacity: 0.3
             }
 
@@ -143,12 +144,12 @@ ControlCenterDialog {
             height: 50
             visible: volume.isValid
 
-            Rectangle {
+            Meui.RoundedRect {
                 id: volumeItemBg
                 anchors.fill: parent
                 anchors.margins: 0
-                radius: Meui.Theme.bigRadius
-                color: Meui.Theme.backgroundColor
+                roundedRadius: Meui.Theme.bigRadius
+                backgroundColor: Meui.Theme.secondBackgroundColor
                 opacity: 0.3
             }
 
