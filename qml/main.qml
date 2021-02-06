@@ -160,12 +160,13 @@ Item {
 //                // popupText: toolTip ? toolTip : title
 //            }
 //        }
-
         StandardItem {
             id: controlItem
             Layout.preferredWidth: isHorizontal ? controlLayout.implicitWidth : mainLayout.width * 0.7
             Layout.preferredHeight: isHorizontal ? mainLayout.height * 0.7 : controlLayout.implicitHeight
             Layout.alignment: Qt.AlignCenter
+            Layout.rightMargin: isHorizontal ? 4 : 0
+            Layout.bottomMargin: isHorizontal ? 0 : 4
 
             onClicked: {
                 if (controlCenter.visible)
@@ -182,6 +183,12 @@ Item {
                 flow: isHorizontal ? Grid.LeftToRight : Grid.TopToBottom
                 columnSpacing: isHorizontal ? Meui.Units.largeSpacing * 1.5 : 0
                 rowSpacing: isHorizontal ? 0 : Meui.Units.largeSpacing * 1.5
+
+                // Padding
+                Item {
+                    width: 1
+                    height: 1
+                }
 
                 Image {
                     id: batteryIcon
@@ -219,6 +226,12 @@ Item {
                             timeLabel.text = new Date().toLocaleTimeString(Qt.locale(), Locale.ShortFormat)
                         }
                     }
+                }
+
+                // Padding
+                Item {
+                    width: 1
+                    height: 1
                 }
             }
         }
