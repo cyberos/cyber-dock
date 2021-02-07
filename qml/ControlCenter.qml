@@ -83,7 +83,10 @@ ControlCenterDialog {
                     implicitWidth: topItem.height
                     implicitHeight: topItem.height
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + "settings.svg"
-                    onLeftButtonClicked: process.startDetached("cyber-settings")
+                    onLeftButtonClicked: {
+                        control.visible = false
+                        process.startDetached("cyber-settings")
+                    }
                 }
 
                 IconButton {
@@ -91,7 +94,10 @@ ControlCenterDialog {
                     implicitWidth: topItem.height
                     implicitHeight: topItem.height
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + "system-shutdown-symbolic.svg"
-                    onLeftButtonClicked: process.startDetached("cyber-shutdown")
+                    onLeftButtonClicked: {
+                        control.visible = false
+                        process.startDetached("cyber-shutdown")
+                    }
                 }
             }
         }
