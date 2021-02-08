@@ -23,6 +23,7 @@
 #include <QDBusServiceWatcher>
 #include <QDBusInterface>
 
+#include <QFile>
 #include <QDebug>
 
 static DockSettings *SELF = nullptr;
@@ -48,6 +49,8 @@ DockSettings::DockSettings(QObject *parent)
         m_settings->setValue("IconSize", 64);
     if (!m_settings->contains("Direction"))
         m_settings->setValue("Direction", Bottom);
+
+    m_settings->sync();
 
     m_iconSize = m_settings->value("IconSize").toInt();
     m_direction = static_cast<Direction>(m_settings->value("Direction").toInt());
@@ -100,6 +103,9 @@ void DockSettings::setStatusBarHeight(int statusBarHeight)
 
 void DockSettings::onConfigFileChanged()
 {
+    if (!QFile(m_settings->fileName()).exists())
+        return;
+
     m_settings->sync();
 
     int iconSize = m_settings->value("IconSize").toInt();
