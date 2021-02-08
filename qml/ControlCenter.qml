@@ -125,6 +125,7 @@ ControlCenterDialog {
                 Image {
                     width: parent.height * 0.6
                     height: parent.height * 0.6
+                    sourceSize: Qt.size(width, height)
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark" : "light") + "/brightness.svg"
                 }
 
@@ -167,6 +168,7 @@ ControlCenterDialog {
                 Image {
                     width: parent.height * 0.6
                     height: parent.height * 0.6
+                    sourceSize: Qt.size(width, height)
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark" : "light") + "/" + volume.iconName + ".svg"
                 }
 
@@ -212,6 +214,8 @@ ControlCenterDialog {
                 visible: battery.available
                 Image {
                     id: batteryIcon
+                    width: 22
+                    height: 16
                     sourceSize: Qt.size(width, height)
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + battery.iconSource
                     asynchronous: true

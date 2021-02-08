@@ -151,4 +151,21 @@ Item {
         x: isLeft ? icon.x - activeDot.width : (parent.width - width) / 2
         y: isLeft ? (parent.height - height) / 2 : icon.y + icon.height
     }
+
+//    Rectangle {
+//        id: activeDot
+//        width: isLeft ? parent.width * 0.03 : parent.height * 0.3
+//        height: isLeft ? parent.height * 0.3 : parent.height * 0.03
+//        color: isActive ? activateDotColor : inactiveDotColor
+//        radius: isLeft ? width / 2 : height / 2
+//        visible: enableActivateDot && !dragStarted
+
+//        anchors {
+//            horizontalCenter: isLeft ? undefined : parent.horizontalCenter
+//            bottom: isLeft ? undefined : parent.bottom
+
+//            verticalCenter: isLeft ? parent.verticalCenter : undefined
+//            left: isLeft ? parent : undefined
+//        }
+//    }
 }
