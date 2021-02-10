@@ -49,7 +49,7 @@ Item {
             ColorOverlay {
                 anchors.fill: _image
                 source: _image
-                color: control.checked ? Meui.Theme.highlightedTextColor : Meui.Theme.textColor
+                color: control.checked ? Meui.Theme.highlightedTextColor : Meui.Theme.disabledTextColor
             }
         }
 
