@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import org.cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
+import Cyber.NetworkManagement 1.0 as NM
 
 Item {
     id: root
@@ -37,6 +38,14 @@ Item {
 
     Battery {
         id: battery
+    }
+
+    NM.ConnectionIcon {
+        id: connectionIconProvider
+    }
+
+    NM.Networking {
+        id: networking
     }
 
     Meui.WindowShadow {
@@ -160,6 +169,7 @@ Item {
 //                // popupText: toolTip ? toolTip : title
 //            }
 //        }
+
         StandardItem {
             id: controlItem
             Layout.preferredWidth: isHorizontal ? controlLayout.implicitWidth : mainLayout.width * 0.7
@@ -188,6 +198,18 @@ Item {
                 Item {
                     width: 1
                     height: 1
+                }
+
+                Image {
+                    id: networkIcon
+                    width: 16
+                    height: width
+                    sourceSize: Qt.size(width, height)
+                    source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") +
+                            connectionIconProvider.connectionTooltipIcon + ".svg"
+                    asynchronous: true
+                    Layout.alignment: Qt.AlignCenter
+                    visible: networking.wirelessEnabled
                 }
 
                 Image {

@@ -62,7 +62,10 @@ ControlCenterDialog {
     ColumnLayout {
         id: _mainLayout
         anchors.fill: parent
-        anchors.margins: Meui.Units.largeSpacing
+        anchors.topMargin: Meui.Units.largeSpacing
+        anchors.bottomMargin: Meui.Units.largeSpacing
+        anchors.leftMargin: Meui.Units.largeSpacing * 2
+        anchors.rightMargin: Meui.Units.largeSpacing * 2
         spacing: Meui.Units.largeSpacing
 
         Item {
@@ -98,6 +101,31 @@ ControlCenterDialog {
                         control.visible = false
                         process.startDetached("cyber-shutdown")
                     }
+                }
+            }
+        }
+
+        Item {
+            id: controlItem
+            Layout.fillWidth: true
+            height: 100
+
+            RowLayout {
+                anchors.fill: parent
+                spacing: Meui.Units.largeSpacing
+
+                CardItem {
+                    id: wirelessItem
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: contentItem.width / 3 - Meui.Units.largeSpacing * 3
+                    icon: "qrc:/svg/dark/network-wireless-connected-100.svg"
+                    checked: networking.wirelessEnabled
+                    text: networking.wirelessEnabled ? connectionIconProvider.currentSSID : qsTr("Off")
+                    onClicked: networking.wirelessEnabled = !networking.wirelessEnabled
+                }
+
+                Item {
+                    Layout.fillWidth: true
                 }
             }
         }
