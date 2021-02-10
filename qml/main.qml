@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.12
 import org.cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
 import Cyber.NetworkManagement 1.0 as NM
+import QtGraphicalEffects 1.15
 
 Item {
     id: root
@@ -256,6 +257,14 @@ Item {
                     height: 1
                 }
             }
+        }
+
+        DropShadow {
+            anchors.fill: controlItem
+            radius: Meui.Theme.darkMode ? 8.0 : 2.0
+            samples: 17
+            color: "#80000000"
+            source: controlItem
         }
     }
 
