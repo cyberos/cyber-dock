@@ -63,7 +63,7 @@ ControlCenterDialog {
         id: _mainLayout
         anchors.fill: parent
         anchors.topMargin: Meui.Units.largeSpacing
-        anchors.bottomMargin: Meui.Units.largeSpacing
+        anchors.bottomMargin: Meui.Units.largeSpacing * 2
         anchors.leftMargin: Meui.Units.largeSpacing * 2
         anchors.rightMargin: Meui.Units.largeSpacing * 2
         spacing: Meui.Units.largeSpacing
