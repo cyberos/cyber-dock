@@ -1,9 +1,11 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+import QtGraphicalEffects 1.0
+
+import Cyber.NetworkManagement 1.0 as NM
 import org.cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
-import Cyber.NetworkManagement 1.0 as NM
 
 Item {
     id: root
@@ -51,37 +53,43 @@ Item {
     Meui.WindowShadow {
         view: rootWindow
         geometry: Qt.rect(root.x, root.y, root.width, root.height)
-        radius: outerFrame.radius
+        radius: _background.radius
     }
 
     Rectangle {
-        id: outerFrame
+        id: _border
         anchors.fill: parent
         radius: windowRadius
-        color: backgroundColor
-        border.color: Qt.rgba(0, 0, 0, 0.4)
+        color: "transparent"
         border.width: 1
-        antialiasing: true
+        border.color: Qt.rgba(0, 0, 0, 0.4)
         smooth: true
+        antialiasing: true
+    }
+
+    Rectangle {
+        id: _border2
+        anchors.fill: parent
+        anchors.margins: 1
+        radius: windowRadius - 1
+        color: "transparent"
+        border.color: Qt.rgba(255, 255, 255, 0.2)
+        border.width: 1
+    }
+
+    Rectangle {
+        id: _background
+        anchors.fill: parent
+        anchors.margins: 2
+        radius: windowRadius - 2
+        color: Meui.Theme.backgroundColor
+        opacity: 0.5
 
         Behavior on color {
             ColorAnimation {
                 duration: 250
             }
         }
-    }
-
-    Rectangle {
-        id: innerBorder
-        anchors.fill: parent
-        anchors.margins: 1
-        radius: windowRadius
-        color: "transparent"
-        border.color: Qt.rgba(255, 255, 255, 0.2)
-        border.width: 1
-        antialiasing: true
-        smooth: true
-        visible: true
     }
 
     Meui.PopupTips {
@@ -168,6 +176,14 @@ Item {
 //                onRightClicked: trayModel.rightButtonClick(id)
 //                // popupText: toolTip ? toolTip : title
 //            }
+//        }
+
+//        DropShadow {
+//            anchors.fill: controlItem
+//            radius: Meui.Theme.darkMode ? 8.0 : 2.0
+//            samples: 17
+//            color: "#80000000"
+//            source: controlItem
 //        }
 
         StandardItem {

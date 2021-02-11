@@ -63,8 +63,8 @@ ControlCenterDialog {
         id: _background
         anchors.fill: parent
         roundedRadius: control.height * 0.05
-        backgroundColor: Meui.Theme.secondBackgroundColor
-        opacity: 0.7
+        backgroundColor: Meui.Theme.backgroundColor
+        opacity: 0.5
     }
 
     Meui.WindowShadow {
@@ -116,8 +116,6 @@ ControlCenterDialog {
                     text: currentUser.userName
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    font.bold: true
-                    font.pointSize: userLabel.height / 4
                     elide: Label.ElideRight
                 }
 
@@ -167,6 +165,15 @@ ControlCenterDialog {
                     onClicked: networking.wirelessEnabled = !networking.wirelessEnabled
                 }
 
+                CardItem {
+                    id: bluetoothItem
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: contentItem.width / 3 - Meui.Units.largeSpacing * 3
+                    icon: "qrc:/svg/light/bluetooth-symbolic.svg"
+                    checked: false
+                    text: "Off"
+                }
+
                 Item {
                     Layout.fillWidth: true
                 }
@@ -184,8 +191,8 @@ ControlCenterDialog {
                 anchors.fill: parent
                 anchors.margins: 0
                 roundedRadius: Meui.Theme.bigRadius
-                backgroundColor: Meui.Theme.secondBackgroundColor
-                opacity: 0.3
+                backgroundColor: Meui.Theme.backgroundColor
+                opacity: 0.2
             }
 
             RowLayout {
@@ -227,8 +234,8 @@ ControlCenterDialog {
                 anchors.fill: parent
                 anchors.margins: 0
                 roundedRadius: Meui.Theme.bigRadius
-                backgroundColor: Meui.Theme.secondBackgroundColor
-                opacity: 0.3
+                backgroundColor: Meui.Theme.backgroundColor
+                opacity: 0.2
             }
 
             RowLayout {

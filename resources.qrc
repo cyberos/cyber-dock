@@ -86,5 +86,6 @@
         <file>svg/light/network-wireless-connected-75.svg</file>
         <file>svg/light/network-wireless-connected-100.svg</file>
         <file>qml/CardItem.qml</file>
+        <file>svg/light/bluetooth-symbolic.svg</file>
     </qresource>
 </RCC>
