@@ -216,7 +216,7 @@ Item {
                             connectionIconProvider.connectionTooltipIcon + ".svg"
                     asynchronous: true
                     Layout.alignment: Qt.AlignCenter
-                    visible: networking.wirelessEnabled
+                    visible: networking.enabled
                 }
 
                 Image {
@@ -262,6 +262,16 @@ Item {
                     width: 1
                     height: 1
                 }
+            }
+
+            DropShadow {
+                source: controlLayout
+                anchors.fill: controlLayout
+                radius: 20.0
+                samples: 17
+                color: "black"
+                verticalOffset: 2
+                visible: Meui.Theme.darkMode
             }
         }
     }

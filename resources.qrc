@@ -73,12 +73,14 @@
         <file>qml/IconButton.qml</file>
         <file>svg/light/settings.svg</file>
         <file>svg/dark/settings.svg</file>
+        <file>svg/dark/network-wired.svg</file>
         <file>svg/dark/network-wired-activated.svg</file>
         <file>svg/dark/network-wireless-connected-00.svg</file>
         <file>svg/dark/network-wireless-connected-25.svg</file>
         <file>svg/dark/network-wireless-connected-50.svg</file>
         <file>svg/dark/network-wireless-connected-75.svg</file>
         <file>svg/dark/network-wireless-connected-100.svg</file>
+        <file>svg/light/network-wired.svg</file>
         <file>svg/light/network-wired-activated.svg</file>
         <file>svg/light/network-wireless-connected-00.svg</file>
         <file>svg/light/network-wireless-connected-25.svg</file>
