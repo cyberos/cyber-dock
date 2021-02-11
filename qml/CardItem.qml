@@ -25,14 +25,11 @@ Item {
         onClicked: control.clicked()
     }
 
-    Rectangle {
-        id: _background
+    Meui.RoundedRect {
         anchors.fill: parent
         radius: Meui.Theme.bigRadius
-        opacity: control.checked ? 0.8 : 0.3
+        opacity: 0.5
         color: control.checked ? Meui.Theme.highlightColor : Meui.Theme.secondBackgroundColor
-        border.color: Meui.Theme.textColor
-        border.width: control.checked ? 0 : 1
     }
 
     ColumnLayout {

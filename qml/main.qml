@@ -1,7 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
-import QtGraphicalEffects 1.0
 
 import Cyber.NetworkManagement 1.0 as NM
 import org.cyber.Dock 1.0
@@ -176,14 +175,6 @@ Item {
 //                onRightClicked: trayModel.rightButtonClick(id)
 //                // popupText: toolTip ? toolTip : title
 //            }
-//        }
-
-//        DropShadow {
-//            anchors.fill: controlItem
-//            radius: Meui.Theme.darkMode ? 8.0 : 2.0
-//            samples: 17
-//            color: "#80000000"
-//            source: controlItem
 //        }
 
         StandardItem {

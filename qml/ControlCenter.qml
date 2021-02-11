@@ -62,8 +62,8 @@ ControlCenterDialog {
     Meui.RoundedRect {
         id: _background
         anchors.fill: parent
-        roundedRadius: control.height * 0.05
-        backgroundColor: Meui.Theme.backgroundColor
+        radius: control.height * 0.05
+        color: Meui.Theme.backgroundColor
         opacity: 0.5
     }
 
@@ -158,6 +158,7 @@ ControlCenterDialog {
                     id: wirelessItem
                     Layout.fillHeight: true
                     Layout.preferredWidth: contentItem.width / 3 - Meui.Units.largeSpacing * 3
+                    visible: !networking.wirelessEnabled
                     icon: "qrc:/svg/dark/network-wireless-connected-100.svg"
                     checked: networking.wirelessEnabled
                     text: networking.wirelessEnabled ? connectionIconProvider.currentSSID ? connectionIconProvider.currentSSID :
@@ -190,8 +191,8 @@ ControlCenterDialog {
                 id: brightnessItemBg
                 anchors.fill: parent
                 anchors.margins: 0
-                roundedRadius: Meui.Theme.bigRadius
-                backgroundColor: Meui.Theme.backgroundColor
+                radius: Meui.Theme.bigRadius
+                color: Meui.Theme.backgroundColor
                 opacity: 0.2
             }
 
@@ -233,8 +234,8 @@ ControlCenterDialog {
                 id: volumeItemBg
                 anchors.fill: parent
                 anchors.margins: 0
-                roundedRadius: Meui.Theme.bigRadius
-                backgroundColor: Meui.Theme.backgroundColor
+                radius: Meui.Theme.bigRadius
+                color: Meui.Theme.backgroundColor
                 opacity: 0.2
             }
 
