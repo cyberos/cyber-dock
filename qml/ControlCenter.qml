@@ -202,6 +202,7 @@ ControlCenterDialog {
                 anchors.fill: brightnessItemBg
                 anchors.margins: Meui.Units.largeSpacing
                 spacing: Meui.Units.largeSpacing
+                visible: brightness.enabled
 
                 Image {
                     width: parent.height * 0.6
