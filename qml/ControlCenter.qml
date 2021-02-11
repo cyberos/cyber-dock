@@ -187,7 +187,7 @@ ControlCenterDialog {
             id: brightnessItem
             Layout.fillWidth: true
             height: 50
-            visible: true
+            visible: brightness.enabled
 
             Meui.RoundedRect {
                 id: brightnessItemBg
@@ -202,7 +202,6 @@ ControlCenterDialog {
                 anchors.fill: brightnessItemBg
                 anchors.margins: Meui.Units.largeSpacing
                 spacing: Meui.Units.largeSpacing
-                visible: brightness.enabled
 
                 Image {
                     width: parent.height * 0.6
