@@ -158,7 +158,6 @@ ControlCenterDialog {
                     id: wirelessItem
                     Layout.fillHeight: true
                     Layout.preferredWidth: contentItem.width / 3 - Meui.Units.largeSpacing * 3
-                    visible: !networking.wirelessEnabled
                     icon: "qrc:/svg/dark/network-wireless-connected-100.svg"
                     checked: networking.wirelessEnabled
                     text: networking.wirelessEnabled ? connectionIconProvider.currentSSID ? connectionIconProvider.currentSSID :
