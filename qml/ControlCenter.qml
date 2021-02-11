@@ -149,6 +149,7 @@ ControlCenterDialog {
             id: controlItem
             Layout.fillWidth: true
             height: 100
+            visible: wirelessItem.visible || bluetoothItem.visible
 
             RowLayout {
                 anchors.fill: parent
@@ -159,12 +160,11 @@ ControlCenterDialog {
                     Layout.fillHeight: true
                     Layout.preferredWidth: contentItem.width / 3 - Meui.Units.largeSpacing * 3
                     icon: "qrc:/svg/dark/network-wireless-connected-100.svg"
-                    checked: networking.wirelessEnabled
-                    text: networking.wirelessEnabled ?
-                        connectionIconProvider.currentSSID ?
-                            connectionIconProvider.currentSSID :
-                            networking.networkStatus :
-                        qsTr("Off")
+                    visible: networking.wirelessHardwareEnabled
+                    checked: connectionIconProvider.currentSSID
+                    text: networking.wirelessEnabled ? connectionIconProvider.currentSSID ?
+                                                           connectionIconProvider.currentSSID :
+                                                           qsTr("WLAN") : qsTr("Off")
                     onClicked: networking.wirelessEnabled = !networking.wirelessEnabled
                 }
 
