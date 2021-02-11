@@ -2,9 +2,11 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
+import QtGraphicalEffects 1.0
+
 import org.cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
-import QtGraphicalEffects 1.0
+import Cyber.Accounts 1.0 as Accounts
 
 ControlCenterDialog {
     id: control
@@ -45,6 +47,18 @@ ControlCenterDialog {
         id: brightness
     }
 
+    Accounts.UserAccount {
+        id: currentUser
+    }
+
+    Accounts.UsersModel {
+        id: userModel
+    }
+
+    Accounts.AccountsManager {
+        id: accountsManager
+    }
+
     Meui.RoundedRect {
         id: _background
         anchors.fill: parent
@@ -62,29 +76,56 @@ ControlCenterDialog {
     ColumnLayout {
         id: _mainLayout
         anchors.fill: parent
-        anchors.topMargin: Meui.Units.largeSpacing
-        anchors.bottomMargin: Meui.Units.largeSpacing * 2
-        anchors.leftMargin: Meui.Units.largeSpacing * 2
-        anchors.rightMargin: Meui.Units.largeSpacing * 2
-        spacing: Meui.Units.largeSpacing
+        anchors.margins: Meui.Units.largeSpacing * 2
+        spacing: Meui.Units.largeSpacing * 2
 
         Item {
             id: topItem
             Layout.fillWidth: true
-            height: 35
+            height: 50
 
             RowLayout {
+                id: topItemLayout
                 anchors.fill: parent
                 spacing: Meui.Units.largeSpacing
 
-                Item {
+                Image {
+                    id: userIcon
+                    Layout.fillHeight: true
+                    width: height
+                    sourceSize: Qt.size(width, height)
+                    // TODO: default icon
+                    source: currentUser.iconFileName ? "file:///" + currentUser.iconFileName : ""
+
+                    layer.enabled: true
+                    layer.effect: OpacityMask {
+                        maskSource: Item {
+                            width: userIcon.width
+                            height: userIcon.height
+
+                            Rectangle {
+                                anchors.fill: parent
+                                radius: parent.height / 2
+                            }
+                        }
+                    }
+                }
+
+                Label {
+                    id: userLabel
+                    text: currentUser.userName
+                    Layout.fillHeight: true
                     Layout.fillWidth: true
+                    font.bold: true
+                    font.pointSize: userLabel.height / 4
+                    elide: Label.ElideRight
                 }
 
                 IconButton {
                     id: settingsButton
-                    implicitWidth: topItem.height
-                    implicitHeight: topItem.height
+                    implicitWidth: topItem.height * 0.8
+                    implicitHeight: topItem.height * 0.8
+                    Layout.alignment: Qt.AlignTop
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + "settings.svg"
                     onLeftButtonClicked: {
                         control.visible = false
@@ -94,8 +135,9 @@ ControlCenterDialog {
 
                 IconButton {
                     id: shutdownButton
-                    implicitWidth: topItem.height
-                    implicitHeight: topItem.height
+                    implicitWidth: topItem.height * 0.8
+                    implicitHeight: topItem.height * 0.8
+                    Layout.alignment: Qt.AlignTop
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + "system-shutdown-symbolic.svg"
                     onLeftButtonClicked: {
                         control.visible = false
