@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
-import QtGraphicalEffects 1.0
+import QtGraphicalEffects 1.15
 
 import org.cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
@@ -161,10 +161,11 @@ ControlCenterDialog {
                     Layout.preferredWidth: contentItem.width / 3 - Meui.Units.largeSpacing * 3
                     icon: "qrc:/svg/dark/network-wireless-connected-100.svg"
                     visible: networking.wirelessHardwareEnabled
-                    checked: connectionIconProvider.currentSSID
+                    checked: networking.wirelessEnabled
+                    label: qsTr("Wi-Fi")
                     text: networking.wirelessEnabled ? connectionIconProvider.currentSSID ?
                                                            connectionIconProvider.currentSSID :
-                                                           qsTr("WLAN") : qsTr("Off")
+                                                           qsTr("On") : qsTr("Off")
                     onClicked: networking.wirelessEnabled = !networking.wirelessEnabled
                 }
 
@@ -174,7 +175,8 @@ ControlCenterDialog {
                     Layout.preferredWidth: contentItem.width / 3 - Meui.Units.largeSpacing * 3
                     icon: "qrc:/svg/light/bluetooth-symbolic.svg"
                     checked: false
-                    text: "Off"
+                    label: qsTr("Bluetooth")
+                    text: qsTr("Off")
                 }
 
                 Item {
