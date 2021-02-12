@@ -58,16 +58,20 @@ Item {
             }
         }
 
+        Item {
+            Layout.fillHeight: true
+        }
+
         Label {
             id: _titleLabel
             color: control.checked ? Meui.Theme.highlightedTextColor : Meui.Theme.disabledTextColor
             Layout.alignment: Qt.AlignHCenter
-            Layout.bottomMargin: -4
         }
 
         Label {
             id: _label
             color: control.checked ? Meui.Theme.highlightedTextColor : Meui.Theme.textColor
+            elide: Label.ElideRight
             Layout.alignment: Qt.AlignHCenter
             Layout.bottomMargin: Meui.Units.largeSpacing
         }
