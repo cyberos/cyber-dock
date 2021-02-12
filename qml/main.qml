@@ -214,12 +214,12 @@ Item {
                             connectionIconProvider.connectionTooltipIcon + ".svg"
                     asynchronous: true
                     Layout.alignment: Qt.AlignCenter
-                    visible: networking.enabled
+                    visible: networking.enabled && status === Image.Ready
                 }
 
                 Image {
                     id: batteryIcon
-                    visible: battery.available
+                    visible: battery.available && status === Image.Ready
                     width: 22
                     height: 16
                     sourceSize: Qt.size(width, height)
@@ -230,7 +230,7 @@ Item {
 
                 Image {
                     id: volumeIcon
-                    visible: volume.isValid
+                    visible: volume.isValid && status === Image.Ready
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark/" : "light/") + volume.iconName + ".svg"
                     width: 16
                     height: width
