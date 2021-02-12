@@ -148,7 +148,7 @@ ControlCenterDialog {
         Item {
             id: controlItem
             Layout.fillWidth: true
-            height: 100
+            height: 120
             visible: wirelessItem.visible || bluetoothItem.visible
 
             RowLayout {
