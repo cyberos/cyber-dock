@@ -1,6 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import QtGraphicalEffects 1.0
+import QtGraphicalEffects 1.15
 import org.cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
 
@@ -19,7 +19,7 @@ Item {
     property bool enableActivateDot: true
     property bool isActive: false
 
-    property var activateDotColor: root.activateDotColor
+    property var activeDotColor: root.activeDotColor
     property var inactiveDotColor: root.inactiveDotColor
 
     property var popupText
@@ -145,7 +145,11 @@ Item {
         id: activeDot
         width: parent.height * 0.07
         height: width
-        color: isActive ? activateDotColor : inactiveDotColor
+        color: Meui.Theme.textColor
+        opacity: isActive ? 1 : 0.4
+        Behavior on opacity {
+            NumberAnimation { duration: 125 }
+        }
         radius: height
         visible: enableActivateDot && !dragStarted
         x: isLeft ? icon.x - activeDot.width : (parent.width - width) / 2

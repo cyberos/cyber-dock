@@ -14,8 +14,6 @@ Item {
 
     property color backgroundColor: Meui.Theme.darkMode ? Qt.rgba(0, 0, 0, 0.1) : Qt.rgba(255, 255, 255, 0.45)
     property color borderColor: Meui.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.1) : Qt.rgba(0, 0, 0, 0.05)
-    property color activateDotColor: Meui.Theme.highlightColor
-    property color inactiveDotColor: Meui.Theme.darkMode ? Qt.rgba(255, 255, 255, 0.6) : Qt.rgba(0, 0, 0, 0.9)
     property real windowRadius: (Settings.direction === DockSettings.Left) ? root.width * 0.3 : root.height * 0.3
     property bool isHorizontal: Settings.direction !== DockSettings.Left
     property var appViewLength: isHorizontal ? appItemView.width : appItemView.height
