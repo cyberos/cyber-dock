@@ -195,7 +195,7 @@ ControlCenterDialog {
                 anchors.margins: 0
                 radius: Meui.Theme.bigRadius
                 color: Meui.Theme.backgroundColor
-                opacity: 0.2
+                opacity: 0.3
             }
 
             RowLayout {
@@ -238,7 +238,7 @@ ControlCenterDialog {
                 anchors.margins: 0
                 radius: Meui.Theme.bigRadius
                 color: Meui.Theme.backgroundColor
-                opacity: 0.2
+                opacity: 0.3
             }
 
             RowLayout {

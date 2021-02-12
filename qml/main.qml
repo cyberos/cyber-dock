@@ -57,38 +57,31 @@ Item {
     }
 
     Rectangle {
-        id: _border
-        anchors.fill: parent
-        radius: windowRadius
-        color: "transparent"
-        border.width: 1
-        border.color: Qt.rgba(0, 0, 0, 0.4)
-        smooth: true
-        antialiasing: true
-    }
-
-    Rectangle {
-        id: _border2
-        anchors.fill: parent
-        anchors.margins: 1
-        radius: windowRadius - 1
-        color: "transparent"
-        border.color: Qt.rgba(255, 255, 255, 0.2)
-        border.width: 1
-    }
-
-    Rectangle {
         id: _background
         anchors.fill: parent
-        anchors.margins: 2
-        radius: windowRadius - 2
+        radius: windowRadius
         color: Meui.Theme.backgroundColor
         opacity: 0.5
 
-        Behavior on color {
-            ColorAnimation {
-                duration: 250
-            }
+        Rectangle {
+            anchors.fill: parent
+            color: "transparent"
+            radius: windowRadius
+            border.width: 1
+            border.color: Qt.rgba(0, 0, 0, 0.9)
+            antialiasing: true
+            smooth: true
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            anchors.margins: 1
+            radius: windowRadius - 1
+            color: "transparent"
+            border.width: 1
+            border.color: Qt.rgba(255, 255, 255, 0.5)
+            antialiasing: true
+            smooth: true
         }
     }
 

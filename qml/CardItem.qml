@@ -28,7 +28,7 @@ Item {
     Meui.RoundedRect {
         anchors.fill: parent
         radius: Meui.Theme.bigRadius
-        opacity: 0.5
+        opacity: control.checked ? 0.9 : 0.3
         color: control.checked ? Meui.Theme.highlightColor : Meui.Theme.secondBackgroundColor
     }
 
