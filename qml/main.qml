@@ -63,6 +63,10 @@ Item {
         color: Meui.Theme.backgroundColor
         opacity: 0.5
 
+        Behavior on color {
+            ColorAnimation { duration: 125 }
+        }
+
         Rectangle {
             anchors.fill: parent
             color: "transparent"
