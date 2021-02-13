@@ -69,8 +69,10 @@ Item {
             anchors.fill: icon
             source: icon
             color: "#000000"
-            opacity: 0.5
-            visible: iconArea.pressed && !mouseArea.drag.active
+            opacity: iconArea.pressed && !mouseArea.drag.active ? 0.5 : 0
+            Behavior on opacity {
+                NumberAnimation { duration: 125 }
+            }
         }
     }
 
@@ -140,18 +142,26 @@ Item {
 
     Rectangle {
         id: activeLine
-        width: isLeft ? parent.width * 0.04 : parent.height * 0.3
-        height: isLeft ? parent.height * 0.3 : parent.height * 0.04
-        color: isActive ? Meui.Theme.highlightColor : Meui.Theme.textColor
+        width: isLeft ? parent.width * 0.05 : (isActive ? parent.height * 0.4 : parent.height * 0.06)
+        height: isLeft ? (isActive ? parent.height * 0.4 : parent.height * 0.05) : parent.height * 0.06
+        color: Meui.Theme.textColor
         radius: isLeft ? width / 2 : height / 2
         visible: enableActivateDot && !dragStarted
-        opacity: isActive ? 1 : 0.5
-
+        opacity: isActive ? 1 : 0.6
+        
         Behavior on opacity {
             NumberAnimation { duration: 125 }
         }
 
-        x: isLeft ? 2 : (parent.width - width) / 2
-        y: isLeft ? (parent.height - height) / 2 : icon.y + icon.height + height
+        Behavior on width {
+            NumberAnimation { duration: 125 }
+        }
+
+        Behavior on height {
+            NumberAnimation { duration: 125 }
+        }
+
+        x: isLeft ? 3 : (parent.width - width) / 2
+        y: isLeft ? (parent.height - height) / 2 : icon.y + icon.height - (height / 5)
     }
 }
