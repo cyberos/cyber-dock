@@ -178,8 +178,8 @@ Item {
             Layout.preferredWidth: isHorizontal ? controlLayout.implicitWidth : mainLayout.width * 0.7
             Layout.preferredHeight: isHorizontal ? mainLayout.height * 0.7 : controlLayout.implicitHeight
             Layout.alignment: Qt.AlignCenter
-            Layout.rightMargin: isHorizontal ? 4 : 0
-            Layout.bottomMargin: isHorizontal ? 0 : 4
+            Layout.rightMargin: isHorizontal ? Meui.Units.smallSpacing : 0
+            Layout.bottomMargin: isHorizontal ? 0 : Meui.Units.smallSpacing
 
             onClicked: {
                 if (controlCenter.visible)

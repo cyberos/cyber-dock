@@ -162,6 +162,7 @@ Item {
         }
 
         x: isLeft ? 3 : (parent.width - width) / 2
-        y: isLeft ? (parent.height - height) / 2 : icon.y + icon.height - (height / 5)
+        y: isLeft ? (parent.height - height) / 2 : icon.y + icon.height + activeLine.height / 2 - 1
+        // 1 is the window border
     }
 }
