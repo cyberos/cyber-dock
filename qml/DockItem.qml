@@ -19,9 +19,6 @@ Item {
     property bool enableActivateDot: true
     property bool isActive: false
 
-    property var activeDotColor: root.activeDotColor
-    property var inactiveDotColor: root.inactiveDotColor
-
     property var popupText
 
     property double iconSizeRatio: 0.8
@@ -142,34 +139,19 @@ Item {
     }
 
     Rectangle {
-        id: activeDot
-        width: parent.height * 0.07
-        height: width
+        id: activeLine
+        width: isLeft ? parent.width * 0.04 : parent.height * 0.3
+        height: isLeft ? parent.height * 0.3 : parent.height * 0.04
         color: isActive ? Meui.Theme.highlightColor : Meui.Theme.textColor
-        opacity: isActive ? 1 : 0.4
+        radius: isLeft ? width / 2 : height / 2
+        visible: enableActivateDot && !dragStarted
+        opacity: isActive ? 1 : 0.5
+
         Behavior on opacity {
             NumberAnimation { duration: 125 }
         }
-        radius: height
-        visible: enableActivateDot && !dragStarted
-        x: isLeft ? icon.x - activeDot.width : (parent.width - width) / 2
-        y: isLeft ? (parent.height - height) / 2 : icon.y + icon.height
+
+        x: isLeft ? 2 : (parent.width - width) / 2
+        y: isLeft ? (parent.height - height) / 2 : icon.y + icon.height + height
     }
-
-//    Rectangle {
-//        id: activeDot
-//        width: isLeft ? parent.width * 0.03 : parent.height * 0.3
-//        height: isLeft ? parent.height * 0.3 : parent.height * 0.03
-//        color: isActive ? activateDotColor : inactiveDotColor
-//        radius: isLeft ? width / 2 : height / 2
-//        visible: enableActivateDot && !dragStarted
-
-//        anchors {
-//            horizontalCenter: isLeft ? undefined : parent.horizontalCenter
-//            bottom: isLeft ? undefined : parent.bottom
-
-//            verticalCenter: isLeft ? parent.verticalCenter : undefined
-//            left: isLeft ? parent : undefined
-//        }
-//    }
 }
