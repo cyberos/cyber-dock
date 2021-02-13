@@ -7,9 +7,13 @@ import Cyber.Mpris 1.0
 
 Item {
     id: control
-    visible: mprisManager.availableServices.length > 0
+    visible: control.currentService && (_songLabel.text != "" || _artistLabel.text != "")
 
-    property bool isPlaying: mprisManager.currentService && mprisManager.playbackStatus === Mpris.Playing
+    property bool isPlaying: currentService && mprisManager.playbackStatus === Mpris.Playing
+    property var currentService: mprisManager.currentService
+    property var artUrlTag: Mpris.metadataToString(Mpris.ArtUrl)
+    property var titleTag: Mpris.metadataToString(Mpris.Title)
+    property var artistTag: Mpris.metadataToString(Mpris.Artist)
 
     MprisManager {
         id: mprisManager
@@ -37,11 +41,10 @@ Item {
             width: height
             visible: status === Image.Ready
             sourceSize: Qt.size(width, height)
-            source:
-                if (mprisManager.currentService) {
-                    var artTag = Mpris.metadataToString(Mpris.ArtUrl)
-                    return (artTag in mprisManager.metadata) ? mprisManager.metadata[artTag].toString() : ""
-                }
+
+            source: if (currentService) {
+                        return (artUrlTag in mprisManager.metadata) ? mprisManager.metadata[artUrlTag].toString() : ""
+                    }
 
             layer.enabled: true
             layer.effect: OpacityMask {
@@ -71,24 +74,18 @@ Item {
                 Label {
                     id: _songLabel
                     Layout.fillWidth: true
-                    visible: text !== ""
-                    text: if (mprisManager.currentService) {
-                        var titleTag = Mpris.metadataToString(Mpris.Title)
-
-                        return (titleTag in mprisManager.metadata) ? mprisManager.metadata[titleTag].toString() : ""
-                    }
+                    visible: _songLabel.text !== ""
+                    text: if (currentService)
+                              return (titleTag in mprisManager.metadata) ? mprisManager.metadata[titleTag].toString() : ""
                     elide: Text.ElideRight
                 }
 
                 Label {
                     id: _artistLabel
                     Layout.fillWidth: true
-                    visible: text !== ""
-                    text: if (mprisManager.currentService) {
-                        var artistTag = Mpris.metadataToString(Mpris.Artist)
-
-                        return (artistTag in mprisManager.metadata) ? mprisManager.metadata[artistTag].toString() : ""
-                    }
+                    visible: _artistLabel.text !== ""
+                    text: if (currentService)
+                              return (artistTag in mprisManager.metadata) ? mprisManager.metadata[artistTag].toString() : ""
                     elide: Text.ElideRight
                 }
 
@@ -111,7 +108,7 @@ Item {
                     height: 33
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark" : "light") + "/media-skip-backward-symbolic.svg"
                     onLeftButtonClicked: if (mprisManager.canGoPrevious) mprisManager.previous()
-                    visible: if (mprisManager.currentService) mprisManager.canGoPrevious
+                    visible: if (currentService) mprisManager.canGoPrevious
                     Layout.alignment: Qt.AlignRight
                 }
 
@@ -121,7 +118,7 @@ Item {
                     source: control.isPlaying ? "qrc:/svg/" + (Meui.Theme.darkMode ? "dark" : "light") + "/media-playback-pause-symbolic.svg"
                                               : "qrc:/svg/" + (Meui.Theme.darkMode ? "dark" : "light") + "/media-playback-start-symbolic.svg"
                     Layout.alignment: Qt.AlignRight
-                    visible: mprisManager.canPause || mprisManager.canPlay
+                    visible: if (currentService) mprisManager.canPause || mprisManager.canPlay
                     onLeftButtonClicked:
                         if ((control.isPlaying && mprisManager.canPause) || (!control.isPlaying && mprisManager.canPlay)) {
                             mprisManager.playPause()
@@ -133,8 +130,8 @@ Item {
                     height: 33
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark" : "light") + "/media-skip-forward-symbolic.svg"
                     Layout.alignment: Qt.AlignRight
-                    onLeftButtonClicked: if (mprisManager.canGoNext) if (mprisManager.canGoNext) mprisManager.next()
-                    visible: if (mprisManager.currentService) mprisManager.canGoNext
+                    onLeftButtonClicked: if (mprisManager.canGoNext) mprisManager.next()
+                    visible: if (currentService) mprisManager.canGoNext
                 }
             }
         }
