@@ -145,7 +145,7 @@ Item {
         id: activeDot
         width: parent.height * 0.07
         height: width
-        color: Meui.Theme.textColor
+        color: isActive ? Meui.Theme.highlightColor : Meui.Theme.textColor
         opacity: isActive ? 1 : 0.4
         Behavior on opacity {
             NumberAnimation { duration: 125 }

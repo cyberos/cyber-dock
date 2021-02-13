@@ -1,6 +1,6 @@
 #include "controlcenterdialog.h"
+#include "xwindowinterface.h"
 #include <KWindowSystem>
-#include <KWindowEffects>
 
 static QRegion cornerMask(const QRect &rect, const int r)
 {
@@ -33,16 +33,27 @@ ControlCenterDialog::ControlCenterDialog(QQuickView *parent)
 {
     setFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
-    connect(this, &QQuickView::widthChanged, this, [=] { KWindowEffects::enableBlurBehind(winId(), true, cornerMask(geometry(), geometry().height() * 0.05)); });
-    connect(this, &QQuickView::heightChanged, this, [=] { KWindowEffects::enableBlurBehind(winId(), true, cornerMask(geometry(), geometry().height() * 0.05)); });
+    connect(this, &QQuickView::widthChanged, this, &ControlCenterDialog::updateBlur);
+    connect(this, &QQuickView::heightChanged, this, &ControlCenterDialog::updateBlur);
     connect(this, &QQuickView::activeChanged, this, [=] {
         if (!isActive())
             hide();
     });
 }
 
+void ControlCenterDialog::updateBlur()
+{
+    const QRect rect { 0, 0, size().width(), size().height() };
+    XWindowInterface::instance()->enableBlurBehind(this, true, cornerMask(rect, rect.height() * 0.05));
+}
+
 void ControlCenterDialog::showEvent(QShowEvent *event)
 {
     KWindowSystem::setState(winId(), NET::SkipTaskbar | NET::SkipPager | NET::SkipSwitcher);
     QQuickView::showEvent(event);
+}
+
+void ControlCenterDialog::hideEvent(QHideEvent *event)
+{
+    QQuickView::hideEvent(event);
 }

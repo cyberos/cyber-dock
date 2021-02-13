@@ -15,6 +15,8 @@ ControlCenterDialog {
 
     property point position: Qt.point(0, 0)
 
+    onWidthChanged: adjustCorrectLocation()
+    onHeightChanged: adjustCorrectLocation()
     onPositionChanged: adjustCorrectLocation()
 
     color: "transparent"
@@ -183,6 +185,11 @@ ControlCenterDialog {
                     Layout.fillWidth: true
                 }
             }
+        }
+
+        MprisController {
+            height: 100
+            Layout.fillWidth: true
         }
 
         Item {

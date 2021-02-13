@@ -89,5 +89,14 @@
         <file>svg/light/network-wireless-connected-100.svg</file>
         <file>qml/CardItem.qml</file>
         <file>svg/light/bluetooth-symbolic.svg</file>
+        <file>qml/MprisController.qml</file>
+        <file>svg/dark/media-playback-pause-symbolic.svg</file>
+        <file>svg/dark/media-playback-start-symbolic.svg</file>
+        <file>svg/dark/media-skip-backward-symbolic.svg</file>
+        <file>svg/dark/media-skip-forward-symbolic.svg</file>
+        <file>svg/light/media-playback-pause-symbolic.svg</file>
+        <file>svg/light/media-playback-start-symbolic.svg</file>
+        <file>svg/light/media-skip-backward-symbolic.svg</file>
+        <file>svg/light/media-skip-forward-symbolic.svg</file>
     </qresource>
 </RCC>
