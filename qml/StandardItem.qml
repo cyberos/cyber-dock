@@ -39,7 +39,10 @@ Item {
         }
 
         Behavior on color {
-            ColorAnimation { duration: 125 }
+            ColorAnimation {
+                duration: 125
+                easing.type: Easing.InOutCubic
+            }
         }
     }
 }

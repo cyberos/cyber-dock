@@ -31,7 +31,10 @@ Item {
         radius: Meui.Theme.bigRadius
         opacity: control.checked ? 0.9 : 0.3
         Behavior on opacity {
-            NumberAnimation { duration: 125 }
+            NumberAnimation {
+                duration: 125
+                easing.type: Easing.InOutCubic
+            }
         }
         color: control.checked ? Meui.Theme.highlightColor : Meui.Theme.secondBackgroundColor
     }
@@ -53,7 +56,10 @@ Item {
                 source: _image
                 color: control.checked ? Meui.Theme.highlightedTextColor : Meui.Theme.disabledTextColor
                 Behavior on color {
-                    ColorAnimation { duration: 125 }
+                    ColorAnimation {
+                        duration: 125
+                        easing.type: Easing.InOutCubic
+                    }
                 }
             }
         }

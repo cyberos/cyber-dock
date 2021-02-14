@@ -62,7 +62,10 @@ Item {
         opacity: 0.5
 
         Behavior on color {
-            ColorAnimation { duration: 125 }
+            ColorAnimation {
+                duration: 125
+                easing.type: Easing.InOutCubics
+            }
         }
 
         Rectangle {

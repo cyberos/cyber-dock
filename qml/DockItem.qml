@@ -71,7 +71,10 @@ Item {
             color: "#000000"
             opacity: iconArea.pressed && !mouseArea.drag.active ? 0.5 : 0
             Behavior on opacity {
-                NumberAnimation { duration: 125 }
+                NumberAnimation {
+                    duration: 125
+                    easing.type: Easing.InOutCubic
+                }
             }
         }
     }
@@ -150,15 +153,24 @@ Item {
         opacity: isActive ? 1 : 0.6
         
         Behavior on opacity {
-            NumberAnimation { duration: 125 }
+            NumberAnimation {
+                duration: 125
+                easing.type: Easing.InOutCubic
+            }
         }
 
         Behavior on width {
-            NumberAnimation { duration: 125 }
+            NumberAnimation {
+                duration: 125
+                easing.type: Easing.InOutCubic
+            }
         }
 
         Behavior on height {
-            NumberAnimation { duration: 125 }
+            NumberAnimation {
+                duration: 125
+                easing.type: Easing.InOutCubic
+            }
         }
 
         x: isLeft ? 3 : (parent.width - width) / 2
