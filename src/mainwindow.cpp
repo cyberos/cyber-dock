@@ -47,6 +47,13 @@ MainWindow::MainWindow(QQuickView *parent)
     , m_appModel(new ApplicationModel)
     , m_resizeAnimation(new QVariantAnimation(this))
 {
+    qmlRegisterType<DockSettings>("Cyber.Dock", 1, 0, "DockSettings");
+    qmlRegisterType<VolumeManager>("Cyber.Dock", 1, 0, "Volume");
+    qmlRegisterType<Battery>("Cyber.Dock", 1, 0, "Battery");
+    qmlRegisterType<Brightness>("Cyber.Dock", 1, 0, "Brightness");
+    qmlRegisterType<ControlCenterDialog>("Cyber.Dock", 1, 0, "ControlCenterDialog");
+    qmlRegisterType<StatusNotifierModel>("Cyber.Dock", 1, 0, "StatusNotifierModel");
+
     m_resizeAnimation->setDuration(250);
     m_resizeAnimation->setEasingCurve(QEasingCurve::InOutQuad);
 
@@ -58,17 +65,10 @@ MainWindow::MainWindow(QQuickView *parent)
     KWindowSystem::setOnDesktop(winId(), NET::OnAllDesktops);
     KWindowSystem::setType(winId(), NET::Dock);
 
-    qmlRegisterType<DockSettings>("org.cyber.Dock", 1, 0, "DockSettings");
-    qmlRegisterType<VolumeManager>("org.cyber.Dock", 1, 0, "Volume");
-    qmlRegisterType<Battery>("org.cyber.Dock", 1, 0, "Battery");
-    qmlRegisterType<Brightness>("org.cyber.Dock", 1, 0, "Brightness");
-    qmlRegisterType<ControlCenterDialog>("org.cyber.Dock", 1, 0, "ControlCenterDialog");
-    qmlRegisterType<StatusNotifierModel>("org.cyber.Dock", 1, 0, "StatusNotifierModel");
-
     engine()->rootContext()->setContextProperty("appModel", m_appModel);
     engine()->rootContext()->setContextProperty("process", new ProcessProvider);
     engine()->rootContext()->setContextProperty("Settings", m_settings);
-    engine()->rootContext()->setContextProperty("rootWindow", this);
+    engine()->rootContext()->setContextProperty("mainWindow", this);
 
     setResizeMode(QQuickView::SizeRootObjectToView);
     setClearBeforeRendering(true);
@@ -120,8 +120,8 @@ void MainWindow::resizeWindow()
     setGeometry(windowRect());
     updateBlurRegion();
     updateViewStruts();
-    updateIconSize();
     setVisible(true);
+    updateIconSize();
 }
 
 void MainWindow::animationResizing()
@@ -151,7 +151,7 @@ void MainWindow::positionAnimationResizing()
     }
 
     m_resizeAnimation->setEndValue(windowRect());
-    m_resizeAnimation->setDuration(300);
+    m_resizeAnimation->setDuration(250);
     m_resizeAnimation->start();
 }
 
@@ -163,17 +163,17 @@ void MainWindow::updateBlurRegion()
     XWindowInterface::instance()->enableBlurBehind(this, true, cornerMask(rect, radius));
 }
 
-void MainWindow::updateViewStruts()
-{
-    XWindowInterface::instance()->setViewStruts(this, m_settings->direction(), geometry());
-    updateIconSize();
-}
-
 void MainWindow::updateIconSize()
 {
     QObject *mainObject = rootObject();
     if (mainObject)
         QMetaObject::invokeMethod(mainObject, "calcIconSize");
+}
+
+void MainWindow::updateViewStruts()
+{
+    XWindowInterface::instance()->setViewStruts(this, m_settings->direction(), geometry());
+    updateIconSize();
 }
 
 void MainWindow::onAnimationValueChanged(const QVariant &value)

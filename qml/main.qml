@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.12
 import QtGraphicalEffects 1.15
 
 import Cyber.NetworkManagement 1.0 as NM
-import org.cyber.Dock 1.0
+import Cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
 
 Item {
@@ -18,6 +18,21 @@ Item {
     property bool isHorizontal: Settings.direction !== DockSettings.Left
     property var appViewLength: isHorizontal ? appItemView.width : appItemView.height
     property var iconSize: 0
+
+    onAppViewLengthChanged: delayCalcIconSize()
+
+    Timer {
+        id: resizeIconTimer
+        interval: 100
+        running: false
+        repeat: false
+        triggeredOnStart: true
+        onTriggered: calcIconSize()
+    }
+
+    function delayCalcIconSize() {
+        resizeIconTimer.start()
+    }
 
     function calcIconSize() {
         var size = Settings.iconSize
@@ -49,7 +64,7 @@ Item {
     }
 
     Meui.WindowShadow {
-        view: rootWindow
+        view: mainWindow
         geometry: Qt.rect(root.x, root.y, root.width, root.height)
         radius: _background.radius
     }
@@ -97,8 +112,8 @@ Item {
     GridLayout {
         id: mainLayout
         anchors.fill: parent
-        anchors.rightMargin: isHorizontal ? windowRadius / 3 : 0
-        anchors.bottomMargin: isHorizontal ? 0 : windowRadius / 3
+        anchors.rightMargin: isHorizontal ? Meui.Units.smallSpacing : 0
+        anchors.bottomMargin: isHorizontal ? 0 : Meui.Units.smallSpacing
         flow: isHorizontal ? Grid.LeftToRight : Grid.TopToBottom
         rowSpacing: 0
         columnSpacing: 0
@@ -139,42 +154,48 @@ Item {
             }
         }
 
-//        ListView {
-//            spacing: Meui.Units.largeSpacing
-//            Layout.preferredWidth: count * root.height + (count - 1) * spacing
-//            Layout.preferredHeight: isHorizontal ? mainLayout.height * 0.7 : controlLayout.implicitHeight
-//            Layout.alignment: Qt.AlignCenter
-//            model: trayModel
-//            orientation: Qt.Horizontal
-//            layoutDirection: Qt.RightToLeft
-//            interactive: false
-//            clip: true
+        ListView {
+            id: systemTrayView
+            spacing: Meui.Units.smallSpacing
+            Layout.preferredWidth: isHorizontal ? count * itemHeight + (count - 1) * spacing : mainLayout.width * 0.7
+            Layout.preferredHeight: isHorizontal ? mainLayout.height * 0.7 : count * itemHeight + (count - 1) * spacing
+            Layout.alignment: Qt.AlignCenter
+            model: trayModel
+            orientation: isHorizontal ? Qt.Horizontal : Qt.Vertical
+            layoutDirection: Qt.RightToLeft
+            interactive: false
+            clip: true
 
-//            StatusNotifierModel {
-//                id: trayModel
-//            }
+            onCountChanged: delayCalcIconSize()
 
-//            delegate: StandardItem {
-//                width: isHorizontal ? mainLayout.height * 0.7 : controlLayout.implicitHeight
-//                height: width
+            property var itemWidth: isHorizontal ? itemHeight / 2 + Meui.Units.smallSpacing : mainLayout.width * 0.7
+            property var itemHeight: isHorizontal ? mainLayout.height * 0.7 : itemWidth / 2
 
-//                Image {
-//                    anchors.centerIn: parent
-//                    source: iconName ? "image://icontheme/" + iconName
-//                                     : iconBytes ? "data:image/png;base64," + iconBytes
-//                                                 : "image://icontheme/application-x-desktop"
-//                    width: 16
-//                    height: width
-//                    sourceSize.width: width
-//                    sourceSize.height: height
-//                    asynchronous: true
-//                }
+            StatusNotifierModel {
+                id: trayModel
+            }
 
-//                onClicked: trayModel.leftButtonClick(id)
-//                onRightClicked: trayModel.rightButtonClick(id)
-//                // popupText: toolTip ? toolTip : title
-//            }
-//        }
+            delegate: StandardItem {
+                height: systemTrayView.itemHeight
+                width: systemTrayView.itemWidth
+
+                Image {
+                    anchors.centerIn: parent
+                    source: iconName ? "image://icontheme/" + iconName
+                                     : iconBytes ? "data:image/png;base64," + iconBytes
+                                                 : "image://icontheme/application-x-desktop"
+                    width: 16
+                    height: width
+                    sourceSize.width: width
+                    sourceSize.height: height
+                    asynchronous: true
+                }
+
+                onClicked: trayModel.leftButtonClick(id)
+                onRightClicked: trayModel.rightButtonClick(id)
+                popupText: toolTip ? toolTip : title
+            }
+        }
 
         StandardItem {
             id: controlItem

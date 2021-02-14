@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtGraphicalEffects 1.15
-import org.cyber.Dock 1.0
+import Cyber.Dock 1.0
 import MeuiKit 1.0 as Meui
 
 Item {
@@ -120,7 +120,7 @@ Item {
         }
 
         onContainsMouseChanged: {
-            if (containsMouse) {
+            if (containsMouse && dockItem.popupText !== "") {
                 popupTips.popupText = dockItem.popupText
 
                 if (Settings.direction == DockSettings.Left)

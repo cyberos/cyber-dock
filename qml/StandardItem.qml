@@ -2,9 +2,12 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import MeuiKit 1.0 as Meui
+import Cyber.Dock 1.0
 
 Item {
     id: control
+
+    property var popupText: ""
 
     signal clicked
     signal rightClicked
@@ -20,6 +23,27 @@ Item {
                 control.clicked()
             else if (mouse.button == Qt.RightButton)
                 control.rightClicked()
+        }
+
+        onPressed: {
+            popupTips.hide()
+        }
+
+        onContainsMouseChanged: {
+            if (containsMouse && control.popupText !== "") {
+                popupTips.popupText = control.popupText
+
+                if (Settings.direction === DockSettings.Left)
+                    popupTips.position = Qt.point(root.width + Settings.edgeMargins,
+                                                  control.mapToGlobal(0, 0).y + (control.height / 2 - popupTips.height / 2))
+                else
+                    popupTips.position = Qt.point(control.mapToGlobal(0, 0).x + (control.width / 2 - popupTips.width / 2),
+                                                  mainWindow.y - popupTips.height - Settings.edgeMargins)
+
+                popupTips.show()
+            } else {
+                popupTips.hide()
+            }
         }
     }
 

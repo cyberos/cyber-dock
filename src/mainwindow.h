@@ -41,8 +41,8 @@ private:
     void animationResizing();
     void positionAnimationResizing();
     void updateBlurRegion();
-    void updateViewStruts();
     void updateIconSize();
+    void updateViewStruts();
     void onAnimationValueChanged(const QVariant &value);
 
     QRegion cornerMask(const QRect &rect, const int r);

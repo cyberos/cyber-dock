@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import Qt.labs.platform 1.0
-import org.cyber.Dock 1.0
+import Cyber.Dock 1.0
 
 DockItem {
     id: appItem
