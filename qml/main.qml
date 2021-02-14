@@ -19,8 +19,6 @@ Item {
     property var appViewLength: isHorizontal ? appItemView.width : appItemView.height
     property var iconSize: 0
 
-    onAppViewLengthChanged: delayCalcIconSize()
-
     Timer {
         id: resizeIconTimer
         interval: 100
@@ -31,7 +29,7 @@ Item {
     }
 
     function delayCalcIconSize() {
-        resizeIconTimer.start()
+        resizeIconTimer.running = true
     }
 
     function calcIconSize() {
