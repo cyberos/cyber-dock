@@ -9,8 +9,13 @@ Item {
     id: control
     visible: control.currentService && (_songLabel.text != "" || _artistLabel.text != "")
 
+    property bool available: if (currentService)
+                                 return true
+                             else
+                                 return false
+
     property bool isPlaying: currentService && mprisManager.playbackStatus === Mpris.Playing
-    property var currentService: mprisManager.currentService
+    property alias currentService: mprisManager.currentService
     property var artUrlTag: Mpris.metadataToString(Mpris.ArtUrl)
     property var titleTag: Mpris.metadataToString(Mpris.Title)
     property var artistTag: Mpris.metadataToString(Mpris.Artist)
@@ -41,10 +46,7 @@ Item {
             width: height
             visible: status === Image.Ready
             sourceSize: Qt.size(width, height)
-
-            source: if (currentService) {
-                        return (artUrlTag in mprisManager.metadata) ? mprisManager.metadata[artUrlTag].toString() : ""
-                    }
+            source: control.available ? (artUrlTag in mprisManager.metadata) ? mprisManager.metadata[artUrlTag].toString() : "" : ""
 
             layer.enabled: true
             layer.effect: OpacityMask {
@@ -75,8 +77,7 @@ Item {
                     id: _songLabel
                     Layout.fillWidth: true
                     visible: _songLabel.text !== ""
-                    text: if (currentService)
-                              return (titleTag in mprisManager.metadata) ? mprisManager.metadata[titleTag].toString() : ""
+                    text: control.available ? (titleTag in mprisManager.metadata) ? mprisManager.metadata[titleTag].toString() : "" : ""
                     elide: Text.ElideRight
                 }
 
@@ -84,8 +85,7 @@ Item {
                     id: _artistLabel
                     Layout.fillWidth: true
                     visible: _artistLabel.text !== ""
-                    text: if (currentService)
-                              return (artistTag in mprisManager.metadata) ? mprisManager.metadata[artistTag].toString() : ""
+                    text: control.available ? (artistTag in mprisManager.metadata) ? mprisManager.metadata[artistTag].toString() : "" : ""
                     elide: Text.ElideRight
                 }
 
@@ -108,7 +108,7 @@ Item {
                     height: 33
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark" : "light") + "/media-skip-backward-symbolic.svg"
                     onLeftButtonClicked: if (mprisManager.canGoPrevious) mprisManager.previous()
-                    visible: if (currentService) mprisManager.canGoPrevious
+                    visible: control.available ? mprisManager.canGoPrevious : false
                     Layout.alignment: Qt.AlignRight
                 }
 
@@ -118,7 +118,7 @@ Item {
                     source: control.isPlaying ? "qrc:/svg/" + (Meui.Theme.darkMode ? "dark" : "light") + "/media-playback-pause-symbolic.svg"
                                               : "qrc:/svg/" + (Meui.Theme.darkMode ? "dark" : "light") + "/media-playback-start-symbolic.svg"
                     Layout.alignment: Qt.AlignRight
-                    visible: if (currentService) mprisManager.canPause || mprisManager.canPlay
+                    visible: control.available ? mprisManager.canPause || mprisManager.canPlay : false
                     onLeftButtonClicked:
                         if ((control.isPlaying && mprisManager.canPause) || (!control.isPlaying && mprisManager.canPlay)) {
                             mprisManager.playPause()
@@ -131,7 +131,7 @@ Item {
                     source: "qrc:/svg/" + (Meui.Theme.darkMode ? "dark" : "light") + "/media-skip-forward-symbolic.svg"
                     Layout.alignment: Qt.AlignRight
                     onLeftButtonClicked: if (mprisManager.canGoNext) mprisManager.next()
-                    visible: if (currentService) mprisManager.canGoNext
+                    visible: control.available ? mprisManager.canGoNext : false
                 }
             }
         }
