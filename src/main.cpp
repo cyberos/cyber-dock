@@ -20,6 +20,9 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickView>
+#include <QTranslator>
+#include <QLocale>
+
 #include "applicationmodel.h"
 #include "mainwindow.h"
 
@@ -27,6 +30,16 @@ int main(int argc, char *argv[])
 {
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
+
+    QString qmFilePath = QString("%1/%2.qm").arg("/usr/share/cyber-dock/translations/").arg(QLocale::system().name());
+    if (QFile::exists(qmFilePath)) {
+        QTranslator *translator = new QTranslator(QApplication::instance());
+        if (translator->load(qmFilePath)) {
+            QGuiApplication::installTranslator(translator);
+        } else {
+            translator->deleteLater();
+        }
+    }
 
     MainWindow w;
 
