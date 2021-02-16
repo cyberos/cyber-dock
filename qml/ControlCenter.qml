@@ -96,8 +96,7 @@ ControlCenterDialog {
                     Layout.fillHeight: true
                     width: height
                     sourceSize: Qt.size(width, height)
-                    // TODO: default icon
-                    source: currentUser.iconFileName ? "file:///" + currentUser.iconFileName : ""
+                    source: currentUser.iconFileName ? "file:///" + currentUser.iconFileName : "image://icontheme/default-user"
 
                     layer.enabled: true
                     layer.effect: OpacityMask {
