@@ -34,11 +34,11 @@ Item {
                 popupTips.popupText = control.popupText
 
                 if (Settings.direction === DockSettings.Left)
-                    popupTips.position = Qt.point(root.width + Settings.edgeMargins,
+                    popupTips.position = Qt.point(root.width + Meui.Units.smallSpacing / 2,
                                                   control.mapToGlobal(0, 0).y + (control.height / 2 - popupTips.height / 2))
                 else
                     popupTips.position = Qt.point(control.mapToGlobal(0, 0).x + (control.width / 2 - popupTips.width / 2),
-                                                  mainWindow.y - popupTips.height - Settings.edgeMargins)
+                                                  mainWindow.y - popupTips.height - Meui.Units.smallSpacing / 2)
 
                 popupTips.show()
             } else {
