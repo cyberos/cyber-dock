@@ -53,14 +53,6 @@ ControlCenterDialog {
         id: currentUser
     }
 
-    Accounts.UsersModel {
-        id: userModel
-    }
-
-    Accounts.AccountsManager {
-        id: accountsManager
-    }
-
     Meui.RoundedRect {
         id: _background
         anchors.fill: parent
@@ -79,7 +71,7 @@ ControlCenterDialog {
         id: _mainLayout
         anchors.fill: parent
         anchors.margins: Meui.Units.largeSpacing * 2
-        spacing: Meui.Units.largeSpacing * 2
+        spacing: Meui.Units.largeSpacing
 
         Item {
             id: topItem

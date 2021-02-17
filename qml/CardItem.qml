@@ -81,5 +81,9 @@ Item {
             Layout.alignment: Qt.AlignHCenter
             Layout.bottomMargin: Meui.Units.largeSpacing
         }
+
+        Item {
+            height: Meui.Units.largeSpacing
+        }
     }
 }
