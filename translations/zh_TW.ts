@@ -45,7 +45,7 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="180"/>
         <source>Bluetooth</source>
-        <translation>藍芽</translation>
+        <translation>藍牙</translation>
     </message>
 </context>
 <context>
