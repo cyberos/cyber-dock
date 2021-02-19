@@ -29,23 +29,23 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="167"/>
         <source>Wi-Fi</source>
-        <translation></translation>
+        <translation>Wi-Fi</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <source>On</source>
-        <translation>Włączone</translation>
+        <translation>Włączono</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <location filename="../qml/ControlCenter.qml" line="181"/>
         <source>Off</source>
-        <translation>Wyłączone</translation>
+        <translation>Wyłączono</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="180"/>
         <source>Bluetooth</source>
-        <translation></translation>
+        <translation>Bluetooth</translation>
     </message>
 </context>
 <context>
@@ -54,7 +54,7 @@
         <location filename="../qml/main.qml" line="125"/>
         <source>Launcher</source>
         <translatorcomment>There&apos;s no translation, the Polish equivalent would be &quot;wyrzutnia&quot; but it doesn&apos;t fit.</translatorcomment>
-        <translation></translation>
+        <translation>Launcher</translation>
     </message>
 </context>
 </TS>
