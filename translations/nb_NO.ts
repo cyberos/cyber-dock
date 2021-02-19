@@ -16,12 +16,12 @@
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Pin</source>
-        <translation type="unfinished"></translation>
+        <translation>Fest</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="69"/>
         <source>Close All</source>
-        <translation type="unfinished"></translation>
+        <translation>Lukk alle</translation>
     </message>
 </context>
 <context>
