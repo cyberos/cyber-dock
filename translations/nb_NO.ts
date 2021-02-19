@@ -6,7 +6,7 @@
     <message>
         <location filename="../qml/AppItem.qml" line="50"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Åpne</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
@@ -29,7 +29,7 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="167"/>
         <source>Wi-Fi</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Trådløst</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
