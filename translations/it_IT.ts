@@ -6,7 +6,7 @@
     <message>
         <location filename="../qml/AppItem.qml" line="50"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aperto</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
