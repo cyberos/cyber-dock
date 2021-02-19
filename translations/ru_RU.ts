@@ -40,7 +40,7 @@
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <location filename="../qml/ControlCenter.qml" line="181"/>
         <source>Off</source>
-        <translation type="unfinished">Выключено</translation>
+        <translation>Выключено</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="180"/>
