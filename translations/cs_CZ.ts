@@ -6,22 +6,22 @@
     <message>
         <location filename="../qml/AppItem.qml" line="50"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Otevřít</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Unpin</source>
-        <translation type="unfinished"></translation>
+        <translation>Odepnout</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Pin</source>
-        <translation type="unfinished"></translation>
+        <translation>Připnout</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="69"/>
         <source>Close All</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavřít všechno</translation>
     </message>
 </context>
 <context>
@@ -29,23 +29,23 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="167"/>
         <source>Wi-Fi</source>
-        <translation type="unfinished"></translation>
+        <translation>Wi-Fi</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapnuto</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <location filename="../qml/ControlCenter.qml" line="181"/>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Vypnuto</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="180"/>
         <source>Bluetooth</source>
-        <translation type="unfinished"></translation>
+        <translation>Bluetooth</translation>
     </message>
 </context>
 <context>
