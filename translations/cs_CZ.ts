@@ -53,7 +53,7 @@
     <message>
         <location filename="../qml/main.qml" line="125"/>
         <source>Launcher</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spouštěč</translation>
     </message>
 </context>
 </TS>
