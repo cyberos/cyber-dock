@@ -77,7 +77,7 @@ Item {
         Behavior on color {
             ColorAnimation {
                 duration: 125
-                easing.type: Easing.InOutCubics
+                easing.type: Easing.InOutCubic
             }
         }
 
@@ -147,7 +147,7 @@ Item {
                 NumberAnimation {
                     properties: "x, y"
                     duration: 300
-                    easing.type: Easing.InOutQuad
+                    easing.type: Easing.InOutCubic
                 }
             }
         }

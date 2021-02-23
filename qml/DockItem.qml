@@ -70,6 +70,12 @@ Item {
             source: icon
             color: "#000000"
             opacity: iconArea.pressed && !mouseArea.drag.active ? 0.5 : 0
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 125
+                    easing.type: Easing.InOutCubic
+                }
+            }
         }
     }
 

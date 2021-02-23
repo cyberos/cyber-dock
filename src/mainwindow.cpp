@@ -55,7 +55,7 @@ MainWindow::MainWindow(QQuickView *parent)
     qmlRegisterType<StatusNotifierModel>("Cyber.Dock", 1, 0, "StatusNotifierModel");
 
     m_resizeAnimation->setDuration(250);
-    m_resizeAnimation->setEasingCurve(QEasingCurve::InOutQuad);
+    m_resizeAnimation->setEasingCurve(QEasingCurve::InOutCubic);
 
     setDefaultAlphaBuffer(true);
     setColor(Qt::transparent);
