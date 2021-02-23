@@ -53,7 +53,7 @@
     <message>
         <location filename="../qml/main.qml" line="125"/>
         <source>Launcher</source>
-        <translation>Aplicações</translation>
+        <translation>Aplicativos</translation>
     </message>
 </context>
 </TS>
