@@ -21,6 +21,8 @@
 #define SYSTEMAPPMONITOR_H
 
 #include <QObject>
+#include <QStandardPaths>
+#include <QStringList>
 #include "systemappitem.h"
 
 class SystemAppMonitor : public QObject
