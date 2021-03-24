@@ -26,8 +26,19 @@ QPixmap IconThemeImageProvider::requestPixmap(const QString &id, QSize *realSize
 
     // Return icon from theme or fallback to a generic icon
     QIcon icon = QIcon::fromTheme(id);
-    if (icon.isNull())
+        if (icon.isNull()) {
+        // Look for a fallback icon in /usr/share/pixmaps
+        QStringList extensions = QStringList() << "png" << "svg" << "xpm";
+        for (QString extension : extensions) {
+            QFile file;
+            QString path = QString(PIXMAP_PATH + id + "." + extension);
+            file.setFileName(path);
+            if (file.exists()) 
+                return QPixmap(path).scaled(size);
+        }
+        // Use the default generic icon instead
         icon = QIcon::fromTheme(QLatin1String("application-x-desktop"));
+    }
 
     return icon.pixmap(size);
 }

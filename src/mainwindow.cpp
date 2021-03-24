@@ -69,6 +69,7 @@ MainWindow::MainWindow(QQuickView *parent)
     engine()->rootContext()->setContextProperty("process", new ProcessProvider);
     engine()->rootContext()->setContextProperty("Settings", m_settings);
     engine()->rootContext()->setContextProperty("mainWindow", this);
+    engine()->addImageProvider(QStringLiteral("iconthemefallback"), new IconThemeImageProvider());
 
     setResizeMode(QQuickView::SizeRootObjectToView);
     setClearBeforeRendering(true);
