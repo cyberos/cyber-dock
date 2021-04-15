@@ -6,22 +6,22 @@
     <message>
         <location filename="../qml/AppItem.qml" line="50"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לִפְתוֹחַ</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Unpin</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">לְהוֹצִיא סִיכָּה</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Pin</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">פִּין</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="69"/>
         <source>Close All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">סגור הכל</translation>
     </message>
 </context>
 <context>
@@ -29,23 +29,23 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="167"/>
         <source>Wi-Fi</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">וויי - פיי</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">עַל</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <location filename="../qml/ControlCenter.qml" line="181"/>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">כבוי</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="180"/>
         <source>Bluetooth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">בלוטות</translation>
     </message>
 </context>
 <context>
@@ -53,7 +53,7 @@
     <message>
         <location filename="../qml/main.qml" line="125"/>
         <source>Launcher</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">מַשׁגֵר</translation>
     </message>
 </context>
 </TS>
