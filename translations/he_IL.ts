@@ -6,22 +6,22 @@
     <message>
         <location filename="../qml/AppItem.qml" line="50"/>
         <source>Open</source>
-        <translation type="unfinished">לִפְתוֹחַ</translation>
+        <translation>פתיחה</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Unpin</source>
-        <translation type="unfinished">לְהוֹצִיא סִיכָּה</translation>
+        <translation>ביטול נעיצה</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Pin</source>
-        <translation type="unfinished">פִּין</translation>
+        <translation>נעיצה</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="69"/>
         <source>Close All</source>
-        <translation type="unfinished">סגור הכל</translation>
+        <translation>סגירת הכל</translation>
     </message>
 </context>
 <context>
@@ -29,12 +29,12 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="167"/>
         <source>Wi-Fi</source>
-        <translation type="unfinished">וויי - פיי</translation>
+        <translation>Wi-Fi</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <source>On</source>
-        <translation type="unfinished">עַל</translation>
+        <translation>פועל</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
@@ -45,7 +45,7 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="180"/>
         <source>Bluetooth</source>
-        <translation type="unfinished">בלוטות</translation>
+        <translation>Bluetooth</translation>
     </message>
 </context>
 <context>
