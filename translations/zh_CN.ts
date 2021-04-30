@@ -16,12 +16,12 @@
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Pin</source>
-        <translation>固定</translation>
+        <translation>固定到程序坞</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="69"/>
         <source>Close All</source>
-        <translation>关闭所有</translation>
+        <translation>关闭所有窗口</translation>
     </message>
 </context>
 <context>
@@ -34,13 +34,13 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <source>On</source>
-        <translation>已开启</translation>
+        <translation>开启</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <location filename="../qml/ControlCenter.qml" line="181"/>
         <source>Off</source>
-        <translation>已关闭</translation>
+        <translation>关闭</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="180"/>
