@@ -6,22 +6,22 @@
     <message>
         <location filename="../qml/AppItem.qml" line="50"/>
         <source>Open</source>
-        <translation type="unfinished">തുറക്കുക</translation>
+        <translation>തുറക്കുക</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Unpin</source>
-        <translation type="unfinished">അൺപിൻ ചെയ്യുക</translation>
+        <translation>അൺപിൻ ചെയ്യുക</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Pin</source>
-        <translation type="unfinished">പിൻ ചെയ്യുക</translation>
+        <translation>പിൻ ചെയ്യുക</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="69"/>
         <source>Close All</source>
-        <translation type="unfinished">എല്ലാം അടയ്‌ക്കുക</translation>
+        <translation>എല്ലാം അടയ്‌ക്കുക</translation>
     </message>
 </context>
 <context>
@@ -29,23 +29,23 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="167"/>
         <source>Wi-Fi</source>
-        <translation type="unfinished">വൈഫൈ</translation>
+        <translation>വൈ-ഫൈ</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <source>On</source>
-        <translation type="unfinished">ഓണാണ്</translation>
+        <translation>ഓൺ ആണ്</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <location filename="../qml/ControlCenter.qml" line="181"/>
         <source>Off</source>
-        <translation type="unfinished">ഓഫാണ്</translation>
+        <translation>ഓഫ് ആണ്</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="180"/>
         <source>Bluetooth</source>
-        <translation type="unfinished">ബ്ലൂടൂത്ത്</translation>
+        <translation>ബ്ലൂട്ടൂത്ത്</translation>
     </message>
 </context>
 <context>
@@ -53,7 +53,7 @@
     <message>
         <location filename="../qml/main.qml" line="125"/>
         <source>Launcher</source>
-        <translation type="unfinished">ലോഞ്ചർ</translation>
+        <translation>ലോഞ്ചർ</translation>
     </message>
 </context>
 </TS>
