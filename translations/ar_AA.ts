@@ -6,22 +6,22 @@
     <message>
         <location filename="../qml/AppItem.qml" line="50"/>
         <source>Open</source>
-        <translation type="unfinished">مفتوح</translation>
+        <translation>فتح</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Unpin</source>
-        <translation type="unfinished">فك</translation>
+        <translation>نزع الدبوس</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Pin</source>
-        <translation type="unfinished">دبوس</translation>
+        <translation>دبس</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="69"/>
         <source>Close All</source>
-        <translation type="unfinished">أغلق الكل</translation>
+        <translation>أغلق الكل</translation>
     </message>
 </context>
 <context>
@@ -29,23 +29,23 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="167"/>
         <source>Wi-Fi</source>
-        <translation type="unfinished">واي فاي</translation>
+        <translation>واي فاي</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <source>On</source>
-        <translation type="unfinished">على</translation>
+        <translation>مشغول</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <location filename="../qml/ControlCenter.qml" line="181"/>
         <source>Off</source>
-        <translation type="unfinished">عن</translation>
+        <translation>غير مشغول</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="180"/>
         <source>Bluetooth</source>
-        <translation type="unfinished">بلوتوث</translation>
+        <translation>بلوتوث</translation>
     </message>
 </context>
 <context>
@@ -53,7 +53,7 @@
     <message>
         <location filename="../qml/main.qml" line="125"/>
         <source>Launcher</source>
-        <translation type="unfinished">منصة الإطلاق</translation>
+        <translation>قاذفة</translation>
     </message>
 </context>
 </TS>
