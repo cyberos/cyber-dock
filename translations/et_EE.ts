@@ -6,22 +6,22 @@
     <message>
         <location filename="../qml/AppItem.qml" line="50"/>
         <source>Open</source>
-        <translation type="unfinished">Avatud</translation>
+        <translation>Avatud</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Unpin</source>
-        <translation type="unfinished">Unpin</translation>
+        <translation>Eemalda Dokist</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="62"/>
         <source>Pin</source>
-        <translation type="unfinished">Pin</translation>
+        <translation>Lisa dokki</translation>
     </message>
     <message>
         <location filename="../qml/AppItem.qml" line="69"/>
         <source>Close All</source>
-        <translation type="unfinished">Sulge kõik</translation>
+        <translation>Sulge kõik</translation>
     </message>
 </context>
 <context>
@@ -29,23 +29,23 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="167"/>
         <source>Wi-Fi</source>
-        <translation type="unfinished">Wi-Fi</translation>
+        <translation>Wi-Fi</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <source>On</source>
-        <translation type="unfinished">Veebilehel</translation>
+        <translation>Sees</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
         <location filename="../qml/ControlCenter.qml" line="181"/>
         <source>Off</source>
-        <translation type="unfinished">Väljaspool</translation>
+        <translation>Väljas</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="180"/>
         <source>Bluetooth</source>
-        <translation type="unfinished">Bluetooth</translation>
+        <translation>Bluetooth</translation>
     </message>
 </context>
 <context>
@@ -53,7 +53,7 @@
     <message>
         <location filename="../qml/main.qml" line="125"/>
         <source>Launcher</source>
-        <translation type="unfinished">Käivitajad</translation>
+        <translation>Menüü</translation>
     </message>
 </context>
 </TS>
