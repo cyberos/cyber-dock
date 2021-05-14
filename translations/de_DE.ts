@@ -21,7 +21,7 @@
     <message>
         <location filename="../qml/AppItem.qml" line="69"/>
         <source>Close All</source>
-        <translation>Alles schließen</translation>
+        <translation>Alle schließen</translation>
     </message>
 </context>
 <context>
