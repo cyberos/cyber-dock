@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="yue" sourcelanguage="zh_TW">
+<TS version="2.1" language="yue_HK" sourcelanguage="zh_TW">
 <context>
     <name>AppItem</name>
     <message>
