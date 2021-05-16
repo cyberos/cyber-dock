@@ -72,7 +72,7 @@ Item {
         anchors.fill: parent
         radius: windowRadius
         color: Meui.Theme.backgroundColor
-        opacity: 0.5
+        opacity: Settings.dockTransparency == true ? 0.5 : 1
 
         Behavior on color {
             ColorAnimation {

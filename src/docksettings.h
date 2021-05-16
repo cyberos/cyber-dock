@@ -30,6 +30,7 @@ class DockSettings : public QObject
     Q_PROPERTY(Direction direction READ direction WRITE setDirection NOTIFY directionChanged)
     Q_PROPERTY(int iconSize READ iconSize WRITE setIconSize NOTIFY iconSizeChanged)
     Q_PROPERTY(int edgeMargins READ edgeMargins WRITE setEdgeMargins)
+    Q_PROPERTY(bool dockTransparency READ dockTransparency WRITE setDockTransparency NOTIFY dockTransparencyChanged)
 
 public:
     enum Direction {
@@ -52,6 +53,9 @@ public:
 
     int statusBarHeight() const;
     void setStatusBarHeight(int statusBarHeight);
+    
+    bool dockTransparency() const;
+    void setDockTransparency(bool enabled);
 
 private slots:
     void onConfigFileChanged();
@@ -59,12 +63,14 @@ private slots:
 signals:
     void iconSizeChanged();
     void directionChanged();
+    void dockTransparencyChanged();
 
 private:
     int m_iconSize;
     int m_edgeMargins;
     int m_statusBarHeight;
     Direction m_direction;
+    bool m_dockTransparency;
     QSettings *m_settings;
     QFileSystemWatcher *m_fileWatcher;
 };
