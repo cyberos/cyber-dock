@@ -42,6 +42,7 @@ DockSettings::DockSettings(QObject *parent)
     , m_edgeMargins(10)
     , m_statusBarHeight(30)
     , m_direction(Left)
+    , m_dockTransparency(true)
     , m_settings(new QSettings(QSettings::UserScope, "cyberos", "dock"))
     , m_fileWatcher(new QFileSystemWatcher(this))
 {
@@ -49,11 +50,14 @@ DockSettings::DockSettings(QObject *parent)
         m_settings->setValue("IconSize", 64);
     if (!m_settings->contains("Direction"))
         m_settings->setValue("Direction", Bottom);
+   	if (!m_settings->contains("DockTransparency"))
+   		m_settings->setValue("DockTransparency", true);
 
     m_settings->sync();
 
     m_iconSize = m_settings->value("IconSize").toInt();
     m_direction = static_cast<Direction>(m_settings->value("Direction").toInt());
+    m_dockTransparency = m_settings->value("DockTransparency").toBool();
 
     m_fileWatcher->addPath(m_settings->fileName());
     connect(m_fileWatcher, &QFileSystemWatcher::fileChanged, this, &DockSettings::onConfigFileChanged);
@@ -118,4 +122,15 @@ void DockSettings::onConfigFileChanged()
         setDirection(direction);
 
     m_fileWatcher->addPath(m_settings->fileName());
+}
+
+bool DockSettings::dockTransparency() const
+{
+	return m_dockTransparency;
+}
+
+void DockSettings::setDockTransparency(bool enabled)
+{
+	m_dockTransparency = enabled;
+	emit dockTransparencyChanged();
 }
