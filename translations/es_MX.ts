@@ -29,7 +29,7 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="167"/>
         <source>Wi-Fi</source>
-        <translation></translation>
+        <translation>Wi-Fi</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
@@ -45,7 +45,7 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="180"/>
         <source>Bluetooth</source>
-        <translation></translation>
+        <translation>Bluetooth</translation>
     </message>
 </context>
 <context>
@@ -54,7 +54,7 @@
         <location filename="../qml/main.qml" line="125"/>
         <source>Launcher</source>
         <translatorcomment>Also there&apos;s no translation, it should be &quot;Lanzador&quot; but doesn&apos;t fit</translatorcomment>
-        <translation></translation>
+        <translation>Launcher</translation>
     </message>
 </context>
 </TS>
