@@ -29,7 +29,7 @@
     <message>
         <location filename="../qml/ControlCenter.qml" line="167"/>
         <source>Wi-Fi</source>
-        <translation></translation>
+        <translation>Wi-Fi</translation>
     </message>
     <message>
         <location filename="../qml/ControlCenter.qml" line="170"/>
